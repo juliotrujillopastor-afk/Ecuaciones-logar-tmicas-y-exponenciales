@@ -1,0 +1,2496 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ecuaciones Logarítmicas y Exponenciales · 1.º Bachillerato</title>
+  <style>
+    /* ==========================================================================
+       VARIABLES Y TOKENS DE DISEÑO (Paleta Académica Índigo / Pizarra)
+       ========================================================================== */
+    :root {
+      --bg-page: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-subtle: #f1f5f9;
+      --bg-indigo-soft: #eef2ff;
+      --bg-indigo-tint: #e0e7ff;
+      --primary: #4f46e5;
+      --primary-hover: #4338ca;
+      --primary-dark: #3730a3;
+      --text-main: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+      --border-light: #e2e8f0;
+      --border-medium: #cbd5e1;
+      --success-bg: #ecfdf5;
+      --success-border: #a7f3d0;
+      --success-text: #065f46;
+      --success-solid: #10b981;
+      --warning-bg: #fffbeb;
+      --warning-border: #fde68a;
+      --warning-text: #92400e;
+      --danger-bg: #fef2f2;
+      --danger-border: #fecaca;
+      --danger-text: #991b1b;
+      --danger-solid: #ef4444;
+      --shadow-sm: 0 1px 2px 0 rgba(15, 23, 42, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.08), 0 2px 4px -2px rgba(15, 23, 42, 0.05);
+      --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -4px rgba(15, 23, 42, 0.04);
+      --radius-sm: 0.5rem;
+      --radius-md: 0.75rem;
+      --radius-lg: 1rem;
+      --radius-xl: 1.25rem;
+      --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ==========================================================================
+       RESET Y ESTILOS BASE
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* ==========================================================================
+       TIPOGRAFÍA MATEMÁTICA (Superíndices, subíndices, fracciones y raíces)
+       ========================================================================== */
+    .math {
+      font-family: 'Cambria Math', 'Times New Roman', Georgia, serif;
+      font-size: 1.08em;
+      letter-spacing: 0.01em;
+      color: var(--text-main);
+    }
+
+    .math-display {
+      font-family: 'Cambria Math', 'Times New Roman', Georgia, serif;
+      font-size: 1.28rem;
+      font-weight: 600;
+      color: var(--text-main);
+      letter-spacing: 0.015em;
+    }
+
+    .math sup, .math-display sup, sup {
+      font-size: 0.72em;
+      line-height: 0;
+      position: relative;
+      vertical-align: baseline;
+      top: -0.52em;
+      font-weight: 600;
+    }
+
+    sup sup {
+      font-size: 0.78em;
+      top: -0.45em;
+    }
+
+    .math sub, .math-display sub, sub {
+      font-size: 0.72em;
+      line-height: 0;
+      position: relative;
+      vertical-align: baseline;
+      bottom: -0.28em;
+      font-weight: 600;
+    }
+
+    .frac {
+      display: inline-flex;
+      flex-direction: column;
+      vertical-align: middle;
+      text-align: center;
+      font-size: 0.86em;
+      line-height: 1.1;
+      margin: 0 0.18em;
+    }
+
+    .frac > span:first-child {
+      border-bottom: 1.5px solid currentColor;
+      padding: 0 0.22em 0.12em;
+    }
+
+    .frac > span:last-child {
+      padding: 0.12em 0.22em 0;
+    }
+
+    .sqrt {
+      display: inline-flex;
+      align-items: baseline;
+    }
+
+    .sqrt-rad {
+      border-top: 1.5px solid currentColor;
+      padding: 0 0.18em;
+      margin-left: 0.05em;
+    }
+
+    /* ==========================================================================
+       CABECERA Y NAVEGACIÓN PRINCIPAL
+       ========================================================================== */
+    .app-header {
+      background: linear-gradient(135deg, #1e1b4b 0%, #312e81 55%, #4338ca 100%);
+      color: #ffffff;
+      padding: 1.75rem 1.25rem 0;
+      box-shadow: var(--shadow-md);
+      position: relative;
+    }
+
+    .header-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      color: #e0e7ff;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+      margin-bottom: 0.75rem;
+    }
+
+    .header-title {
+      font-size: clamp(1.45rem, 3.2vw, 2.05rem);
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.4rem;
+    }
+
+    .header-subtitle {
+      color: #c7d2fe;
+      font-size: 0.96rem;
+      max-width: 680px;
+      margin-bottom: 1.4rem;
+    }
+
+    /* Pestañas superiores */
+    .nav-tabs {
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .nav-tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .tab-btn {
+      appearance: none;
+      border: none;
+      background: rgba(255, 255, 255, 0.1);
+      color: #e0e7ff;
+      font-family: inherit;
+      font-size: 0.92rem;
+      font-weight: 600;
+      padding: 0.85rem 1.25rem;
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      white-space: nowrap;
+      transition: var(--transition);
+      min-height: 46px;
+    }
+
+    .tab-btn:hover {
+      background: rgba(255, 255, 255, 0.18);
+      color: #ffffff;
+    }
+
+    .tab-btn.active {
+      background: var(--bg-page);
+      color: var(--primary-dark);
+      box-shadow: 0 -2px 10px rgba(15, 23, 42, 0.12);
+    }
+
+    /* ==========================================================================
+       CONTENEDOR PRINCIPAL Y VISTAS
+       ========================================================================== */
+    .main-container {
+      max-width: 1120px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 1.75rem 1.25rem 3.5rem;
+      flex: 1;
+    }
+
+    .tab-panel {
+      display: none;
+      animation: fadeIn 0.25s ease-out;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ==========================================================================
+       BOTONES Y COMPONENTES COMUNES
+       ========================================================================== */
+    .btn {
+      appearance: none;
+      border: 1px solid transparent;
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 600;
+      padding: 0.6rem 1rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      transition: var(--transition);
+      min-height: 40px;
+      text-decoration: none;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #ffffff;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-secondary {
+      background: var(--bg-surface);
+      color: var(--text-secondary);
+      border-color: var(--border-medium);
+    }
+
+    .btn-secondary:hover {
+      background: var(--bg-subtle);
+      color: var(--text-main);
+    }
+
+    .btn-soft {
+      background: var(--bg-indigo-soft);
+      color: var(--primary-dark);
+      border-color: var(--bg-indigo-tint);
+    }
+
+    .btn-soft:hover {
+      background: var(--bg-indigo-tint);
+    }
+
+    .btn-emerald {
+      background: var(--success-solid);
+      color: #ffffff;
+    }
+
+    .btn-emerald:hover {
+      background: #059669;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.22rem 0.65rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .badge-indigo {
+      background: var(--bg-indigo-soft);
+      color: var(--primary-dark);
+    }
+
+    .badge-slate {
+      background: var(--bg-subtle);
+      color: var(--text-secondary);
+    }
+
+    .badge-green {
+      background: var(--success-bg);
+      color: var(--success-text);
+      border: 1px solid var(--success-border);
+    }
+
+    .badge-amber {
+      background: var(--warning-bg);
+      color: var(--warning-text);
+      border: 1px solid var(--warning-border);
+    }
+
+    .badge-red {
+      background: var(--danger-bg);
+      color: var(--danger-text);
+      border: 1px solid var(--danger-border);
+    }
+
+    /* ==========================================================================
+       PESTAÑA 1: SOLUCIONARIO PÁG. 42
+       ========================================================================== */
+    .toolbar-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.75rem;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .jump-links {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .jump-label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-right: 0.25rem;
+    }
+
+    .global-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .open-counter {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      margin-right: 0.35rem;
+    }
+
+    .exercise-section {
+      margin-bottom: 2.5rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+      margin-bottom: 1.15rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid var(--border-light);
+    }
+
+    .section-number {
+      background: var(--primary);
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 1.05rem;
+      min-width: 2.35rem;
+      height: 2.35rem;
+      border-radius: var(--radius-md);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-sm);
+      flex-shrink: 0;
+    }
+
+    .section-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.35;
+    }
+
+    .section-desc {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      margin-top: 0.15rem;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 480px), 1fr));
+      gap: 1.1rem;
+    }
+
+    .sol-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sol-card:hover {
+      border-color: var(--border-medium);
+      box-shadow: var(--shadow-md);
+    }
+
+    .sol-card.is-open {
+      border-color: #c7d2fe;
+      box-shadow: var(--shadow-md);
+    }
+
+    .sol-card-header {
+      padding: 1.1rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .sol-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .letter-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-indigo-soft);
+      color: var(--primary-dark);
+      font-weight: 800;
+      font-size: 0.9rem;
+      padding: 0.22rem 0.65rem;
+      border-radius: var(--radius-sm);
+    }
+
+    .equation-box {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 0.85rem 1rem;
+      text-align: center;
+      overflow-x: auto;
+    }
+
+    .toggle-step-btn {
+      width: 100%;
+      justify-content: space-between;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      color: var(--primary-dark);
+      padding: 0.65rem 1rem;
+      border-radius: var(--radius-md);
+    }
+
+    .toggle-step-btn:hover {
+      background: var(--bg-indigo-soft);
+      border-color: var(--bg-indigo-tint);
+    }
+
+    .sol-card.is-open .toggle-step-btn {
+      background: var(--bg-indigo-soft);
+      border-color: #c7d2fe;
+    }
+
+    .chevron-icon {
+      transition: transform 0.2s ease;
+      font-size: 0.8rem;
+    }
+
+    .sol-card.is-open .chevron-icon {
+      transform: rotate(180deg);
+    }
+
+    .sol-body {
+      display: none;
+      padding: 0 1.25rem 1.25rem;
+      border-top: 1px dashed var(--border-light);
+      background: #fcfdff;
+    }
+
+    .sol-card.is-open .sol-body {
+      display: block;
+      animation: fadeIn 0.2s ease-out;
+    }
+
+    .steps-list {
+      list-style: none;
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+
+    .step-item {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      border-left: 3px solid var(--primary);
+      border-radius: var(--radius-sm);
+      padding: 0.65rem 0.85rem;
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+    }
+
+    .step-label {
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-right: 0.35rem;
+    }
+
+    .domain-check {
+      margin-top: 0.85rem;
+      background: var(--warning-bg);
+      border: 1px solid var(--warning-border);
+      border-radius: var(--radius-md);
+      padding: 0.75rem 0.9rem;
+      font-size: 0.88rem;
+      color: var(--warning-text);
+    }
+
+    .domain-check ul {
+      margin: 0.4rem 0 0 1.15rem;
+    }
+
+    .domain-check li {
+      margin-bottom: 0.2rem;
+    }
+
+    .final-answer-box {
+      margin-top: 0.9rem;
+      background: var(--success-bg);
+      border: 1px solid var(--success-border);
+      color: var(--success-text);
+      border-radius: var(--radius-md);
+      padding: 0.7rem 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      font-weight: 700;
+      font-size: 0.96rem;
+    }
+
+    /* ==========================================================================
+       PESTAÑA 2: SIMULADOR DE PRÁCTICA
+       ========================================================================== */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 0.85rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .stat-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 0.95rem 1.1rem;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+    }
+
+    .stat-value {
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .stat-value.green { color: var(--success-solid); }
+    .stat-value.indigo { color: var(--primary); }
+    .stat-value.amber { color: #d97706; }
+
+    .practice-controls {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 1.15rem 1.25rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .filters-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .filter-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-right: 0.25rem;
+    }
+
+    .chip-btn {
+      appearance: none;
+      border: 1px solid var(--border-medium);
+      background: var(--bg-surface);
+      color: var(--text-secondary);
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 0.42rem 0.8rem;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: var(--transition);
+      min-height: 36px;
+    }
+
+    .chip-btn:hover {
+      background: var(--bg-subtle);
+    }
+
+    .chip-btn.active {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+
+    .practice-stage {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+    }
+
+    .stage-header {
+      background: var(--bg-subtle);
+      border-bottom: 1px solid var(--border-light);
+      padding: 0.95rem 1.35rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .stage-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .stage-nav {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .stage-body {
+      padding: 1.75rem 1.35rem;
+    }
+
+    .prompt-instruction {
+      font-size: 0.96rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+
+    .practice-equation-box {
+      background: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
+      border: 1.5px solid #c7d2fe;
+      border-radius: var(--radius-lg);
+      padding: 1.5rem 1.25rem;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      overflow-x: auto;
+    }
+
+    .practice-equation-box .math-display {
+      font-size: clamp(1.35rem, 3vw, 1.75rem);
+      color: var(--primary-dark);
+    }
+
+    .answer-form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .input-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+    }
+
+    .answer-input {
+      flex: 1 1 240px;
+      font-family: inherit;
+      font-size: 1.05rem;
+      font-weight: 600;
+      padding: 0.75rem 1rem;
+      border: 2px solid var(--border-medium);
+      border-radius: var(--radius-md);
+      color: var(--text-main);
+      background: var(--bg-surface);
+      transition: var(--transition);
+      min-height: 48px;
+    }
+
+    .answer-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+    }
+
+    .input-helper {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    .secondary-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      margin-top: 0.35rem;
+    }
+
+    .feedback-banner {
+      margin-top: 1.25rem;
+      border-radius: var(--radius-md);
+      padding: 1rem 1.15rem;
+      font-size: 0.94rem;
+      display: none;
+      animation: fadeIn 0.2s ease-out;
+    }
+
+    .feedback-banner.show {
+      display: block;
+    }
+
+    .feedback-banner.success {
+      background: var(--success-bg);
+      border: 1px solid var(--success-border);
+      color: var(--success-text);
+    }
+
+    .feedback-banner.error {
+      background: var(--danger-bg);
+      border: 1px solid var(--danger-border);
+      color: var(--danger-text);
+    }
+
+    .feedback-banner.warning {
+      background: var(--warning-bg);
+      border: 1px solid var(--warning-border);
+      color: var(--warning-text);
+    }
+
+    .hint-box {
+      margin-top: 1.1rem;
+      background: var(--warning-bg);
+      border: 1px solid var(--warning-border);
+      border-radius: var(--radius-md);
+      padding: 0.95rem 1.1rem;
+      color: var(--warning-text);
+      font-size: 0.92rem;
+      display: none;
+    }
+
+    .hint-box.show {
+      display: block;
+      animation: fadeIn 0.2s ease-out;
+    }
+
+    .practice-solution-box {
+      margin-top: 1.25rem;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-medium);
+      border-radius: var(--radius-lg);
+      padding: 1.2rem;
+      display: none;
+    }
+
+    .practice-solution-box.show {
+      display: block;
+      animation: fadeIn 0.25s ease-out;
+    }
+
+    /* ==========================================================================
+       PESTAÑA 3: CHULETARIO DE PROPIEDADES
+       ========================================================================== */
+    .cheat-section {
+      margin-bottom: 2.25rem;
+    }
+
+    .cheat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr));
+      gap: 1.1rem;
+    }
+
+    .cheat-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .cheat-card-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .formula-pill {
+      background: var(--bg-indigo-soft);
+      border: 1px solid var(--bg-indigo-tint);
+      border-radius: var(--radius-md);
+      padding: 0.75rem 0.9rem;
+      text-align: center;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .example-note {
+      background: var(--bg-subtle);
+      border-radius: var(--radius-sm);
+      padding: 0.55rem 0.75rem;
+      font-size: 0.86rem;
+      color: var(--text-secondary);
+    }
+
+    .alert-card {
+      background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+      border: 1.5px solid #fcd34d;
+      border-radius: var(--radius-lg);
+      padding: 1.25rem 1.35rem;
+      margin-bottom: 1.5rem;
+      color: #78350f;
+    }
+
+    .alert-card h3 {
+      font-size: 1.05rem;
+      margin-bottom: 0.45rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* ==========================================================================
+       PIE DE PÁGINA Y UTILIDADES RESPONSIVAS
+       ========================================================================== */
+    .app-footer {
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border-light);
+      padding: 1.25rem;
+      text-align: center;
+      font-size: 0.84rem;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 640px) {
+      .app-header {
+        padding: 1.35rem 1rem 0;
+      }
+      .tab-btn {
+        padding: 0.75rem 0.95rem;
+        font-size: 0.85rem;
+      }
+      .main-container {
+        padding: 1.25rem 0.95rem 2.75rem;
+      }
+      .stage-body {
+        padding: 1.25rem 1rem;
+      }
+      .btn {
+        width: 100%;
+      }
+      .global-actions .btn,
+      .stage-nav .btn {
+        width: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================================================
+       CABECERA Y BARRA DE NAVEGACIÓN SUPERIOR (3 PESTAÑAS)
+       ======================================================================== -->
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="header-badge">📐 Matemáticas I · 1.º Bachillerato</div>
+      <h1 class="header-title">Ecuaciones Logarítmicas y Exponenciales</h1>
+      <p class="header-subtitle">
+        Solucionario completo paso a paso (Pág. 42), simulador interactivo con generador de ejercicios y formulario de consulta rápida.
+      </p>
+
+      <nav class="nav-tabs" role="tablist" aria-label="Secciones principales">
+        <button class="tab-btn active" role="tab" aria-selected="true" data-tab="solucionario">
+          📘 Solucionario (Pág. 42)
+        </button>
+        <button class="tab-btn" role="tab" aria-selected="false" data-tab="practicar">
+          🎯 Practicar Ejercicios
+        </button>
+        <button class="tab-btn" role="tab" aria-selected="false" data-tab="chuletario">
+          📋 Chuletario de Propiedades
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-container">
+
+    <!-- ======================================================================
+         PESTAÑA 1: SOLUCIONARIO DE LOS EJERCICIOS (PÁG. 42)
+         ====================================================================== -->
+    <section id="tab-solucionario" class="tab-panel active" role="tabpanel">
+      <div class="toolbar-card">
+        <div class="jump-links">
+          <span class="jump-label">Ir a bloque:</span>
+          <a href="#bloque-25" class="btn btn-secondary" style="padding: 0.35rem 0.75rem; min-height: 34px; font-size: 0.82rem;">Ejercicio 25</a>
+          <a href="#bloque-26" class="btn btn-secondary" style="padding: 0.35rem 0.75rem; min-height: 34px; font-size: 0.82rem;">Ejercicio 26</a>
+          <a href="#bloque-27" class="btn btn-secondary" style="padding: 0.35rem 0.75rem; min-height: 34px; font-size: 0.82rem;">Ejercicio 27</a>
+        </div>
+        <div class="global-actions">
+          <span id="openCounter" class="open-counter">0 / 15 desplegadas</span>
+          <button type="button" id="btnExpandAll" class="btn btn-soft">Mostrar todas</button>
+          <button type="button" id="btnCollapseAll" class="btn btn-secondary">Ocultar todas</button>
+        </div>
+      </div>
+
+      <!-- Contenedor dinámico donde se renderizan los 3 bloques del solucionario -->
+      <div id="solucionarioContainer"></div>
+    </section>
+
+    <!-- ======================================================================
+         PESTAÑA 2: PRACTICAR EJERCICIOS (NIVEL 1.º BACHILLERATO)
+         ====================================================================== -->
+    <section id="tab-practicar" class="tab-panel" role="tabpanel">
+      <!-- Marcador de progreso -->
+      <div class="stats-grid" aria-label="Marcador de progreso">
+        <div class="stat-card">
+          <span class="stat-label">Aciertos</span>
+          <span id="statCorrect" class="stat-value green">0</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Intentos</span>
+          <span id="statAttempts" class="stat-value">0</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Racha actual</span>
+          <span id="statStreak" class="stat-value amber">0 🔥</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Precisión</span>
+          <span id="statAccuracy" class="stat-value indigo">—</span>
+        </div>
+      </div>
+
+      <!-- Controles de filtro y generador aleatorio -->
+      <div class="practice-controls">
+        <div class="filters-row">
+          <div class="filter-group" id="typeFilters">
+            <span class="filter-title">Tipo:</span>
+            <button type="button" class="chip-btn active" data-type="all">Todos</button>
+            <button type="button" class="chip-btn" data-type="log">Ecuaciones Logarítmicas</button>
+            <button type="button" class="chip-btn" data-type="exp">Ecuaciones Exponenciales</button>
+          </div>
+
+          <div class="filter-group" id="diffFilters">
+            <span class="filter-title">Dificultad:</span>
+            <button type="button" class="chip-btn active" data-diff="all">Todas</button>
+            <button type="button" class="chip-btn" data-diff="Básico">Básico</button>
+            <button type="button" class="chip-btn" data-diff="Intermedio">Intermedio</button>
+            <button type="button" class="chip-btn" data-diff="Examen">Examen</button>
+          </div>
+        </div>
+
+        <div class="filters-row" style="border-top: 1px solid var(--border-light); padding-top: 0.85rem;">
+          <button type="button" id="btnGenerateRandom" class="btn btn-primary">
+            🎲 Generar nuevo ejercicio aleatorio
+          </button>
+          <button type="button" id="btnResetStats" class="btn btn-secondary">
+            ↺ Reiniciar marcador
+          </button>
+        </div>
+      </div>
+
+      <!-- Escenario del ejercicio activo -->
+      <div class="practice-stage">
+        <div class="stage-header">
+          <div class="stage-meta">
+            <span id="practiceIndexBadge" class="badge badge-indigo">Ejercicio 1 de 15</span>
+            <span id="practiceTypeBadge" class="badge badge-slate">Ecuación Logarítmica</span>
+            <span id="practiceDiffBadge" class="badge badge-green">Básico</span>
+            <span id="practiceRandomTag" class="badge badge-amber" style="display: none;">✨ Generado aleatoriamente</span>
+          </div>
+          <div class="stage-nav">
+            <button type="button" id="btnPrevEx" class="btn btn-secondary" style="padding: 0.4rem 0.75rem; min-height: 36px;">← Anterior</button>
+            <button type="button" id="btnNextEx" class="btn btn-secondary" style="padding: 0.4rem 0.75rem; min-height: 36px;">Siguiente →</button>
+          </div>
+        </div>
+
+        <div class="stage-body">
+          <p class="prompt-instruction">Resuelve la siguiente ecuación para <span class="math">x</span> (descarta las soluciones que no pertenezcan al dominio):</p>
+
+          <div class="practice-equation-box">
+            <div id="practiceEquation" class="math-display">log<sub>2</sub>(3x - 2) = 4</div>
+          </div>
+
+          <form id="practiceForm" class="answer-form" autocomplete="off">
+            <div class="input-group">
+              <input
+                type="text"
+                id="userAnswerInput"
+                class="answer-input"
+                placeholder="Ej: 6  ó  1/2  ó  2, -1"
+                aria-label="Introduce tu solución para x"
+              >
+              <button type="submit" class="btn btn-emerald" style="min-height: 48px; padding: 0.75rem 1.4rem;">
+                ✓ Comprobar
+              </button>
+            </div>
+            <p class="input-helper">
+              Formato admitido: enteros (<code>4</code>), fracciones (<code>1/2</code>, <code>-5/2</code>), decimales con punto o coma (<code>2.26</code> o <code>2,26</code>) y dos soluciones separadas por coma (<code>2, -1</code>).
+            </p>
+
+            <div class="secondary-actions">
+              <button type="button" id="btnShowHint" class="btn btn-soft">💡 Pista</button>
+              <button type="button" id="btnShowPracticeSol" class="btn btn-secondary">👁 Ver solución paso a paso</button>
+            </div>
+          </form>
+
+          <div id="practiceFeedback" class="feedback-banner" role="status"></div>
+          <div id="practiceHint" class="hint-box"></div>
+          <div id="practiceSolution" class="practice-solution-box"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         PESTAÑA 3: CHULETARIO DE PROPIEDADES (1.º BACHILLERATO)
+         ====================================================================== -->
+    <section id="tab-chuletario" class="tab-panel" role="tabpanel">
+      <div class="alert-card">
+        <h3>⚠️ Regla de oro en ecuaciones logarítmicas (Comprobación obligatoria)</h3>
+        <p style="font-size: 0.93rem; line-height: 1.55;">
+          El logaritmo <strong>solo existe para argumentos estrictamente positivos</strong> y bases positivas distintas de 1:
+          en <span class="math">log<sub>a</sub>(u)</span> debe cumplirse siempre que <span class="math"><strong>u &gt; 0</strong></span>, <span class="math"><strong>a &gt; 0</strong></span> y <span class="math"><strong>a ≠ 1</strong></span>.
+          Al resolver la ecuación algebraica equivalente pueden aparecer <em>soluciones extrañas</em> que debes descartar tras comprobar en la ecuación original.
+        </p>
+      </div>
+
+      <!-- Bloque A: Definición y valores notables -->
+      <div class="cheat-section">
+        <div class="section-header">
+          <span class="section-number">1</span>
+          <div>
+            <h2 class="section-title">Definición de Logaritmo y Valores Notables</h2>
+            <p class="section-desc">Relación fundamental entre potencias y logaritmos</p>
+          </div>
+        </div>
+
+        <div class="cheat-grid">
+          <div class="cheat-card">
+            <div class="cheat-card-title">
+              <span>Definición fundamental</span>
+              <span class="badge badge-indigo">Esencial</span>
+            </div>
+            <div class="formula-pill math">
+              log<sub>a</sub>(u) = y &nbsp;⇔&nbsp; a<sup>y</sup> = u
+            </div>
+            <p style="font-size: 0.88rem; color: var(--text-secondary);">
+              El logaritmo en base <span class="math">a</span> de <span class="math">u</span> es el exponente <span class="math">y</span> al que hay que elevar la base <span class="math">a</span> para obtener <span class="math">u</span>.
+            </p>
+            <div class="example-note">
+              <strong>Ejemplo:</strong> <span class="math">log<sub>2</sub>(8) = 3</span> porque <span class="math">2<sup>3</sup> = 8</span>.
+            </div>
+          </div>
+
+          <div class="cheat-card">
+            <div class="cheat-card-title">
+              <span>Notaciones habituales</span>
+              <span class="badge badge-slate">Bases</span>
+            </div>
+            <div class="formula-pill math">
+              log(x) = log<sub>10</sub>(x) &nbsp;|&nbsp; ln(x) = log<sub>e</sub>(x)
+            </div>
+            <p style="font-size: 0.88rem; color: var(--text-secondary);">
+              Si no se escribe la base, se sobreentiende <strong>base 10</strong> (logaritmo decimal). Si aparece <span class="math">ln</span>, la base es el número <span class="math">e ≈ 2,718</span> (neperiano).
+            </p>
+            <div class="example-note">
+              <strong>Ejemplo:</strong> <span class="math">log(100) = 2</span> ya que <span class="math">10<sup>2</sup> = 100</span>.
+            </div>
+          </div>
+
+          <div class="cheat-card">
+            <div class="cheat-card-title">
+              <span>Identidades inmediatas</span>
+              <span class="badge badge-slate">Propiedades base</span>
+            </div>
+            <div class="formula-pill math">
+              log<sub>a</sub>(1) = 0 &nbsp;|&nbsp; log<sub>a</sub>(a) = 1 &nbsp;|&nbsp; log<sub>a</sub>(a<sup>k</sup>) = k
+            </div>
+            <p style="font-size: 0.88rem; color: var(--text-secondary);">
+              Cualquier base elevada a 0 da 1, y elevada a 1 da la propia base. Además, <span class="math">a<sup>log<sub>a</sub>(u)</sup> = u</span>.
+            </p>
+            <div class="example-note">
+              <strong>Ejemplo:</strong> <span class="math">log<sub>5</sub>(1) = 0</span> y <span class="math">log<sub>3</sub>(3<sup>4</sup>) = 4</span>.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bloque B: Propiedades operativas de los logaritmos -->
+      <div class="cheat-section">
+        <div class="section-header">
+          <span class="section-number">2</span>
+          <div>
+            <h2 class="section-title">Propiedades Operativas de los Logaritmos</h2>
+            <p class="section-desc">Herramientas para agrupar términos en un único logaritmo</p>
+          </div>
+        </div>
+
+        <div class="cheat-grid">
+          <div class="cheat-card">
+            <div class="cheat-card-title">
+              <span>Logaritmo de un producto</span>
+              <span class="badge badge-indigo">Suma → Producto</span>
+            </div>
+            <div class="formula-pill math">
+              log<sub>a</sub>(u · v) = log<sub>a</sub>(u) + log<sub>a</sub>(v)
+            </div>
+            <p style="font-size: 0.88rem; color: var(--text-secondary);">
+              La suma de dos logaritmos de la misma base equivale al logaritmo del producto de sus argumentos.
+            </p>
+            <div class="example-note">
+              <strong>Ejemplo:</strong> <span class="math">log(x) + log(x - 3) = log(x(x - 3))</span>
+            </div>
+          </div>
+
+          <div class="cheat-card">
+            <div class="cheat-card-title">
+              <span>Logaritmo de un cociente</span>
+              <span class="badge badge-indigo">Resta → Cociente</span>
+            </div>
+            <div class="formula-pill math">
+              log<sub>a</sub><span class="frac"><span>u</span><span>v</span></span> = log<sub>a</sub>(u) - log<sub>a</sub>(v)
+            </div>
+            <p style="font-size: 0.88rem; color: var(--text-secondary);">
+              La diferencia de dos logaritmos de la misma base se transforma en el logaritmo del cociente.
+            </p>
+            <div class="example-note">
+              <strong>Ejemplo:</strong> <span class="math">log<sub>2</sub>(x + 1) - log<sub>2</sub>(x) = log<sub>2</sub>((x + 1)/x)</span>
+            </div>
+          </div>
+
+          <div class="cheat-card">
+            <div class="cheat-card-title">
+              <span>Logaritmo de una potencia</span>
+              <span class="badge badge-indigo">Coeficiente → Exponente</span>
+            </div>
+            <div class="formula-pill math">
+              log<sub>a</sub>(u<sup>n</sup>) = n · log<sub>a</sub>(u)
+            </div>
+            <p style="font-size: 0.88rem; color: var(--text-secondary);">
+              Un número que multiplica delante de un logaritmo pasa como exponente del argumento (también válido para raíces: <span class="math">√u = u<sup>1/2</sup></span>).
+            </p>
+            <div class="example-note">
+              <strong>Ejemplo:</strong> <span class="math">2·log(x) = log(x<sup>2</sup>)</span>
+            </div>
+          </div>
+
+          <div class="cheat-card">
+            <div class="cheat-card-title">
+              <span>Cambio de base</span>
+              <span class="badge badge-amber">Muy usado en examen</span>
+            </div>
+            <div class="formula-pill math">
+              log<sub>b</sub>(u) = <span class="frac"><span>log<sub>a</sub>(u)</span><span>log<sub>a</sub>(b)</span></span>
+            </div>
+            <p style="font-size: 0.88rem; color: var(--text-secondary);">
+              Permite unificar logaritmos con bases distintas (como base 3 y base 9, o base 2 y base 8). Caso práctico: <span class="math">log<sub>a<sup>k</sup></sub>(u) = <span class="frac"><span>log<sub>a</sub>(u)</span><span>k</span></span></span>.
+            </p>
+            <div class="example-note">
+              <strong>Ejemplo:</strong> <span class="math">log<sub>9</sub>(x) = <span class="frac"><span>log<sub>3</sub>(x)</span><span>log<sub>3</sub>(9)</span></span> = <span class="frac"><span>log<sub>3</sub>(x)</span><span>2</span></span></span>
+            </div>
+          </div>
+
+          <div class="cheat-card">
+            <div class="cheat-card-title">
+              <span>Igualdad de logaritmos (Inyectividad)</span>
+              <span class="badge badge-green">Despeje final</span>
+            </div>
+            <div class="formula-pill math">
+              log<sub>a</sub>(u) = log<sub>a</sub>(v) &nbsp;⇒&nbsp; u = v
+            </div>
+            <p style="font-size: 0.88rem; color: var(--text-secondary);">
+              Cuando logramos tener un único logaritmo en cada miembro con la misma base, igualamos sus argumentos.
+            </p>
+            <div class="example-note">
+              <strong>Ejemplo:</strong> <span class="math">log(x<sup>2</sup>) = log(256) ⇒ x<sup>2</sup> = 256</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bloque C: Estrategias para ecuaciones exponenciales -->
+      <div class="cheat-section">
+        <div class="section-header">
+          <span class="section-number">3</span>
+          <div>
+            <h2 class="section-title">Estrategias para Ecuaciones Exponenciales</h2>
+            <p class="section-desc">Los 4 métodos clave de 1.º de Bachillerato según la estructura de la ecuación</p>
+          </div>
+        </div>
+
+        <div class="cheat-grid">
+          <div class="cheat-card">
+            <div class="cheat-card-title">
+              <span>1. Igualación de bases</span>
+              <span class="badge badge-green">Directo</span>
+            </div>
+            <div class="formula-pill math">
+              a<sup>f(x)</sup> = a<sup>g(x)</sup> &nbsp;⇒&nbsp; f(x) = g(x)
+            </div>
+            <p style="font-size: 0.88rem; color: var(--text-secondary);">
+              Expresa ambos miembros como potencias de la misma base e iguala los exponentes.
+            </p>
+            <div class="example-note">
+              <strong>Ejemplo:</strong> <span class="math">3<sup>2x-5</sup> = 27 ⇒ 3<sup>2x-5</sup> = 3<sup>3</sup> ⇒ 2x - 5 = 3</span>
+            </div>
+          </div>
+
+          <div class="cheat-card">
+            <div class="cheat-card-title">
+              <span>2. Sacar factor común a<sup>x</sup></span>
+              <span class="badge badge-indigo">Sumas/Restas</span>
+            </div>
+            <div class="formula-pill math">
+              a<sup>x+n</sup> = a<sup>x</sup> · a<sup>n</sup> &nbsp;|&nbsp; a<sup>x-n</sup> = <span class="frac"><span>a<sup>x</sup></span><span>a<sup>n</sup></span></span>
+            </div>
+            <p style="font-size: 0.88rem; color: var(--text-secondary);">
+              Cuando aparecen sumas o restas de potencias de la misma base con exponentes lineales (<span class="math">x+1, x-1</span>), descompón y extrae factor común <span class="math">a<sup>x</sup></span>.
+            </p>
+            <div class="example-note">
+              <strong>Ejemplo:</strong> <span class="math">2<sup>x+1</sup> + 2<sup>x</sup> = 12 ⇒ 2<sup>x</sup>(2 + 1) = 12 ⇒ 2<sup>x</sup> = 4</span>
+            </div>
+          </div>
+
+          <div class="cheat-card">
+            <div class="cheat-card-title">
+              <span>3. Cambio de variable t = a<sup>x</sup></span>
+              <span class="badge badge-amber">Cuadráticas</span>
+            </div>
+            <div class="formula-pill math">
+              t = a<sup>x</sup> (con t &gt; 0) &nbsp;⇒&nbsp; a<sup>2x</sup> = (a<sup>x</sup>)<sup>2</sup> = t<sup>2</sup>
+            </div>
+            <p style="font-size: 0.88rem; color: var(--text-secondary);">
+              Si aparecen <span class="math">a<sup>2x</sup></span> (o <span class="math">(a<sup>2</sup>)<sup>x</sup></span>) junto con <span class="math">a<sup>x</sup></span>, sustituye <span class="math">t = a<sup>x</sup></span> para resolver una ecuación de 2.º grado. <strong>Descarta siempre valores t ≤ 0</strong>.
+            </p>
+            <div class="example-note">
+              <strong>Ejemplo:</strong> <span class="math">9<sup>x</sup> - 4·3<sup>x</sup> + 3 = 0 ⇒ t<sup>2</sup> - 4t + 3 = 0</span>
+            </div>
+          </div>
+
+          <div class="cheat-card">
+            <div class="cheat-card-title">
+              <span>4. Aplicar logaritmos</span>
+              <span class="badge badge-slate">Bases distintas</span>
+            </div>
+            <div class="formula-pill math">
+              a<sup>x</sup> = b &nbsp;⇒&nbsp; x · log(a) = log(b) &nbsp;⇒&nbsp; x = <span class="frac"><span>log(b)</span><span>log(a)</span></span>
+            </div>
+            <p style="font-size: 0.88rem; color: var(--text-secondary);">
+              Cuando el término independiente <span class="math">b</span> no es potencia exacta de la base <span class="math">a</span>, toma logaritmos decimales o neperianos en ambos miembros.
+            </p>
+            <div class="example-note">
+              <strong>Ejemplo:</strong> <span class="math">3<sup>x</sup> = 12 ⇒ x = <span class="frac"><span>log(12)</span><span>log(3)</span></span> ≈ 2,26</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="app-footer">
+    Material interactivo de apoyo para <strong>Matemáticas I (1.º de Bachillerato)</strong> · Ecuaciones Logarítmicas y Exponenciales (Pág. 42)
+  </footer>
+
+  <!-- ========================================================================
+       LÓGICA JAVASCRIPT (Solucionario, Simulador, Generador y Validador)
+       ======================================================================== -->
+  <script>
+    (function () {
+      'use strict';
+
+      /* ======================================================================
+         1. DATOS DEL SOLUCIONARIO OFICIAL (PÁGINA 42)
+         ====================================================================== */
+      const SOLUCIONARIO_DATA = [
+        {
+          id: 'bloque-25',
+          number: '25',
+          title: 'Ejercicio 25. Resuelve las siguientes ecuaciones logarítmicas:',
+          subtitle: 'Aplicación de la definición, cambio de base, propiedades y comprobación del dominio',
+          items: [
+            {
+              letter: 'a)',
+              tag: 'Definición base 10',
+              equation: 'log(2x + 4) = 2',
+              steps: [
+                { label: 'Paso 1:', text: 'Aplicamos la definición de logaritmo en base 10: <span class="math">2x + 4 = 10<sup>2</sup> = 100</span>.' },
+                { label: 'Paso 2:', text: 'Despejamos <span class="math">x</span>: <span class="math">2x = 100 - 4 ⇒ 2x = 96 ⇒ x = 48</span>.' }
+              ],
+              domainCheck: '<strong>Comprobación del dominio:</strong> Sustituimos en el argumento: <span class="math">2(48) + 4 = 100 &gt; 0</span>. El argumento es positivo.',
+              finalAnswer: 'x = 48'
+            },
+            {
+              letter: 'b)',
+              tag: 'Incógnita en la base',
+              equation: '3·log<sub>x</sub>(2) + 2·log<sub>x</sub>(4) = -7',
+              steps: [
+                { label: 'Paso 1:', text: 'Expresamos <span class="math">4</span> como <span class="math">2<sup>2</sup></span> y aplicamos la propiedad de la potencia: <span class="math">3·log<sub>x</sub>(2) + 2·log<sub>x</sub>(2<sup>2</sup>) = -7 ⇒ 3·log<sub>x</sub>(2) + 4·log<sub>x</sub>(2) = -7</span>.' },
+                { label: 'Paso 2:', text: 'Agrupamos términos semejantes: <span class="math">7·log<sub>x</sub>(2) = -7 ⇒ log<sub>x</sub>(2) = -1</span>.' },
+                { label: 'Paso 3:', text: 'Por definición de logaritmo: <span class="math">x<sup>-1</sup> = 2 ⇒ <span class="frac"><span>1</span><span>x</span></span> = 2 ⇒ x = <span class="frac"><span>1</span><span>2</span></span></span>.' }
+              ],
+              domainCheck: '<strong>Comprobación de la base:</strong> La base <span class="math">x = <span class="frac"><span>1</span><span>2</span></span></span> cumple <span class="math">x &gt; 0</span> y <span class="math">x ≠ 1</span>.',
+              finalAnswer: 'x = <span class="frac"><span>1</span><span>2</span></span>'
+            },
+            {
+              letter: 'c)',
+              tag: 'Cambio de base',
+              equation: 'log<sub>3</sub>(x) + log<sub>9</sub>(x) = 3',
+              steps: [
+                { label: 'Paso 1:', text: 'Cambiamos <span class="math">log<sub>9</sub>(x)</span> a base 3: <span class="math">log<sub>9</sub>(x) = <span class="frac"><span>log<sub>3</sub>(x)</span><span>log<sub>3</sub>(9)</span></span> = <span class="frac"><span>log<sub>3</sub>(x)</span><span>2</span></span></span>.' },
+                { label: 'Paso 2:', text: 'Sustituimos en la ecuación: <span class="math">log<sub>3</sub>(x) + <span class="frac"><span>1</span><span>2</span></span>·log<sub>3</sub>(x) = 3 ⇒ <span class="frac"><span>3</span><span>2</span></span>·log<sub>3</sub>(x) = 3</span>.' },
+                { label: 'Paso 3:', text: 'Despejamos: <span class="math">log<sub>3</sub>(x) = 2 ⇒ x = 3<sup>2</sup> = 9</span>.' }
+              ],
+              domainCheck: '<strong>Comprobación del dominio:</strong> <span class="math">x = 9 &gt; 0</span>. Solución válida.',
+              finalAnswer: 'x = 9'
+            },
+            {
+              letter: 'd)',
+              tag: 'Ruffini y dominio',
+              equation: 'log(5 - x) + 2·log(x) = log(12)',
+              steps: [
+                { label: 'Paso 1:', text: 'Aplicamos propiedades de potencia y producto: <span class="math">log((5 - x)·x<sup>2</sup>) = log(12)</span>.' },
+                { label: 'Paso 2:', text: 'Igualamos argumentos: <span class="math">(5 - x)x<sup>2</sup> = 12 ⇒ 5x<sup>2</sup> - x<sup>3</sup> = 12 ⇒ x<sup>3</sup> - 5x<sup>2</sup> + 12 = 0</span>.' },
+                { label: 'Paso 3:', text: 'Factorizamos por Ruffini probando divisores de 12. Para <span class="math">x = 2</span>: <span class="math">2<sup>3</sup> - 5(2<sup>2</sup>) + 12 = 8 - 20 + 12 = 0</span>. Obtenemos <span class="math">(x - 2)(x<sup>2</sup> - 3x - 6) = 0</span>.' },
+                { label: 'Paso 4:', text: 'Resolvemos <span class="math">x<sup>2</sup> - 3x - 6 = 0 ⇒ x = <span class="frac"><span>3 ± <span class="sqrt">√<span class="sqrt-rad">33</span></span></span><span>2</span></span></span> (aprox. <span class="math">x<sub>2</sub> ≈ 4,37</span> y <span class="math">x<sub>3</sub> ≈ -1,37</span>).' }
+              ],
+              domainCheck: `<strong>Comprobación del dominio (<span class="math">5 - x &gt; 0</span> y <span class="math">x &gt; 0 ⇒ 0 &lt; x &lt; 5</span>):</strong>
+                <ul>
+                  <li>✅ <span class="math">x<sub>1</sub> = 2</span> (válida, está entre 0 y 5)</li>
+                  <li>✅ <span class="math">x<sub>2</sub> = <span class="frac"><span>3 + <span class="sqrt">√<span class="sqrt-rad">33</span></span></span><span>2</span></span> ≈ 4,37</span> (válida, está entre 0 y 5)</li>
+                  <li>❌ <span class="math">x<sub>3</sub> = <span class="frac"><span>3 - <span class="sqrt">√<span class="sqrt-rad">33</span></span></span><span>2</span></span> ≈ -1,37</span> (no válida, hace negativo el argumento de <span class="math">log(x)</span>).</li>
+                </ul>`,
+              finalAnswer: 'x<sub>1</sub> = 2, &nbsp; x<sub>2</sub> = <span class="frac"><span>3 + <span class="sqrt">√<span class="sqrt-rad">33</span></span></span><span>2</span></span>'
+            }
+          ]
+        },
+        {
+          id: 'bloque-26',
+          number: '26',
+          title: 'Ejercicio 26. Resuelve las siguientes ecuaciones:',
+          subtitle: 'Igualación de logaritmos, cambio de base y descarte de raíces extrañas',
+          items: [
+            {
+              letter: 'a)',
+              tag: 'Cambio de base y 3.er grado',
+              equation: 'log<sub>2</sub>(x) = log<sub>8</sub>(x<sup>2</sup> + 2x)',
+              steps: [
+                { label: 'Paso 1:', text: 'Pasamos <span class="math">log<sub>8</sub>(x<sup>2</sup> + 2x)</span> a base 2: <span class="math">log<sub>8</sub>(x<sup>2</sup> + 2x) = <span class="frac"><span>log<sub>2</sub>(x<sup>2</sup> + 2x)</span><span>log<sub>2</sub>(8)</span></span> = <span class="frac"><span>log<sub>2</sub>(x<sup>2</sup> + 2x)</span><span>3</span></span></span>.' },
+                { label: 'Paso 2:', text: 'Multiplicamos por 3 y aplicamos potencia: <span class="math">3·log<sub>2</sub>(x) = log<sub>2</sub>(x<sup>2</sup> + 2x) ⇒ log<sub>2</sub>(x<sup>3</sup>) = log<sub>2</sub>(x<sup>2</sup> + 2x)</span>.' },
+                { label: 'Paso 3:', text: 'Igualamos argumentos: <span class="math">x<sup>3</sup> = x<sup>2</sup> + 2x ⇒ x<sup>3</sup> - x<sup>2</sup> - 2x = 0 ⇒ x(x - 2)(x + 1) = 0</span>. Posibles raíces: <span class="math">x = 0, x = 2, x = -1</span>.' }
+              ],
+              domainCheck: `<strong>Comprobación del dominio (<span class="math">x &gt; 0</span> y <span class="math">x<sup>2</sup> + 2x &gt; 0</span>):</strong>
+                <ul>
+                  <li>❌ <span class="math">x = 0</span> y <span class="math">x = -1</span> no son válidas (anulan o hacen negativo el argumento).</li>
+                  <li>✅ <span class="math">x = 2</span> sí es válida (<span class="math">2 &gt; 0</span> y <span class="math">2<sup>2</sup> + 2(2) = 8 &gt; 0</span>).</li>
+                </ul>`,
+              finalAnswer: 'x = 2'
+            },
+            {
+              letter: 'b)',
+              tag: 'Potencia y producto',
+              equation: '2·log(x) = log(64) + log(4)',
+              steps: [
+                { label: 'Paso 1:', text: 'Aplicamos propiedades de potencia y producto: <span class="math">log(x<sup>2</sup>) = log(64 · 4) ⇒ log(x<sup>2</sup>) = log(256)</span>.' },
+                { label: 'Paso 2:', text: 'Igualamos argumentos: <span class="math">x<sup>2</sup> = 256 ⇒ x = ±16</span>.' }
+              ],
+              domainCheck: '<strong>Comprobación del dominio (<span class="math">x &gt; 0</span>):</strong> <span class="math">x = -16</span> no es válida porque el argumento de <span class="math">log(x)</span> debe ser positivo.',
+              finalAnswer: 'x = 16'
+            },
+            {
+              letter: 'c)',
+              tag: 'Producto y 2.º grado',
+              equation: 'log(x + 5) + log(3x + 5) = log(48)',
+              steps: [
+                { label: 'Paso 1:', text: 'Aplicamos la propiedad del producto: <span class="math">log((x + 5)(3x + 5)) = log(48)</span>.' },
+                { label: 'Paso 2:', text: 'Igualamos argumentos y desarrollamos: <span class="math">(x + 5)(3x + 5) = 48 ⇒ 3x<sup>2</sup> + 20x + 25 = 48 ⇒ 3x<sup>2</sup> + 20x - 23 = 0</span>.' },
+                { label: 'Paso 3:', text: 'Resolvemos la ecuación de 2.º grado: <span class="math">x = <span class="frac"><span>-20 ± <span class="sqrt">√<span class="sqrt-rad">400 + 276</span></span></span><span>6</span></span> = <span class="frac"><span>-20 ± 26</span><span>6</span></span> ⇒ x<sub>1</sub> = 1, &nbsp; x<sub>2</sub> = -<span class="frac"><span>23</span><span>3</span></span></span>.' }
+              ],
+              domainCheck: '<strong>Comprobación del dominio (<span class="math">x + 5 &gt; 0</span> y <span class="math">3x + 5 &gt; 0 ⇒ x &gt; -<span class="frac"><span>5</span><span>3</span></span></span>):</strong> <span class="math">x<sub>2</sub> = -<span class="frac"><span>23</span><span>3</span></span></span> no es válida.',
+              finalAnswer: 'x = 1'
+            }
+          ]
+        },
+        {
+          id: 'bloque-27',
+          number: '27',
+          title: 'Ejercicio 27. Resuelve las siguientes ecuaciones exponenciales:',
+          subtitle: 'Logaritmos, igualación de bases, factor común y cambio de variable t = aˣ',
+          items: [
+            {
+              letter: 'a)',
+              tag: 'Tomando logaritmos',
+              equation: '3<sup>x</sup> = 12',
+              steps: [
+                { label: 'Paso 1:', text: 'Como 12 no es potencia exacta de 3, tomamos logaritmos en ambos miembros: <span class="math">log(3<sup>x</sup>) = log(12)</span>.' },
+                { label: 'Paso 2:', text: 'Aplicamos propiedad de potencia: <span class="math">x·log(3) = log(12) ⇒ x = <span class="frac"><span>log(12)</span><span>log(3)</span></span> = log<sub>3</sub>(12) ≈ 2,2619</span>.' }
+              ],
+              domainCheck: null,
+              finalAnswer: 'x = log<sub>3</sub>(12) ≈ 2,26'
+            },
+            {
+              letter: 'b)',
+              tag: 'Igualación de bases',
+              equation: '3<sup>2x-5</sup> = 27',
+              steps: [
+                { label: 'Paso 1:', text: 'Expresamos 27 como potencia de 3: <span class="math">3<sup>2x-5</sup> = 3<sup>3</sup></span>.' },
+                { label: 'Paso 2:', text: 'Igualamos exponentes: <span class="math">2x - 5 = 3 ⇒ 2x = 8 ⇒ x = 4</span>.' }
+              ],
+              domainCheck: null,
+              finalAnswer: 'x = 4'
+            },
+            {
+              letter: 'c)',
+              tag: 'Exponente cuadrático',
+              equation: '5<sup>x<sup>2</sup>-x</sup> = 25',
+              steps: [
+                { label: 'Paso 1:', text: 'Expresamos 25 como <span class="math">5<sup>2</sup></span>: <span class="math">5<sup>x<sup>2</sup>-x</sup> = 5<sup>2</sup></span>.' },
+                { label: 'Paso 2:', text: 'Igualamos exponentes: <span class="math">x<sup>2</sup> - x = 2 ⇒ x<sup>2</sup> - x - 2 = 0 ⇒ (x - 2)(x + 1) = 0</span>.' }
+              ],
+              domainCheck: null,
+              finalAnswer: 'x<sub>1</sub> = 2, &nbsp; x<sub>2</sub> = -1'
+            },
+            {
+              letter: 'd)',
+              tag: 'Factor común 2ˣ',
+              equation: '2<sup>x-1</sup> + 3·2<sup>x</sup> - 2<sup>x+1</sup> = 24',
+              steps: [
+                { label: 'Paso 1:', text: 'Descomponemos las potencias en función de <span class="math">2<sup>x</sup></span>: <span class="math"><span class="frac"><span>2<sup>x</sup></span><span>2</span></span> + 3·2<sup>x</sup> - 2·2<sup>x</sup> = 24</span>.' },
+                { label: 'Paso 2:', text: 'Sacamos factor común <span class="math">2<sup>x</sup></span>: <span class="math">2<sup>x</sup> · (<span class="frac"><span>1</span><span>2</span></span> + 3 - 2) = 24 ⇒ 2<sup>x</sup> · (<span class="frac"><span>3</span><span>2</span></span>) = 24</span>.' },
+                { label: 'Paso 3:', text: 'Despejamos <span class="math">2<sup>x</sup></span>: <span class="math">2<sup>x</sup> = <span class="frac"><span>24 · 2</span><span>3</span></span> = 16 = 2<sup>4</sup> ⇒ x = 4</span>.' }
+              ],
+              domainCheck: null,
+              finalAnswer: 'x = 4'
+            },
+            {
+              letter: 'e)',
+              tag: 'Cambio de variable t = 3ˣ',
+              equation: '2·3<sup>1-x</sup> + 3<sup>x-1</sup> = 3<sup>x</sup>',
+              steps: [
+                { label: 'Paso 1:', text: 'Reescribimos usando propiedades de potencias: <span class="math">2·<span class="frac"><span>3</span><span>3<sup>x</sup></span></span> + <span class="frac"><span>3<sup>x</sup></span><span>3</span></span> = 3<sup>x</sup></span>.' },
+                { label: 'Paso 2:', text: 'Hacemos el cambio de variable <span class="math">t = 3<sup>x</sup></span> (con <span class="math">t &gt; 0</span>): <span class="math"><span class="frac"><span>6</span><span>t</span></span> + <span class="frac"><span>t</span><span>3</span></span> = t</span>.' },
+                { label: 'Paso 3:', text: 'Multiplicamos todo por <span class="math">3t</span>: <span class="math">18 + t<sup>2</sup> = 3t<sup>2</sup> ⇒ 2t<sup>2</sup> = 18 ⇒ t<sup>2</sup> = 9 ⇒ t = ±3</span>.' },
+                { label: 'Paso 4:', text: 'Como <span class="math">t = 3<sup>x</sup> &gt; 0</span>, descartamos <span class="math">t = -3</span>. Con <span class="math">t = 3</span>: <span class="math">3<sup>x</sup> = 3<sup>1</sup> ⇒ x = 1</span>.' }
+              ],
+              domainCheck: null,
+              finalAnswer: 'x = 1'
+            },
+            {
+              letter: 'f)',
+              tag: 'Cambio de variable t = 3ˣ',
+              equation: '9<sup>x-2</sup> + 3<sup>x+1</sup> = 90',
+              steps: [
+                { label: 'Paso 1:', text: 'Expresamos en base 3: <span class="math">(3<sup>2</sup>)<sup>x-2</sup> + 3·3<sup>x</sup> = 90 ⇒ 3<sup>2x-4</sup> + 3·3<sup>x</sup> = 90 ⇒ <span class="frac"><span>(3<sup>x</sup>)<sup>2</sup></span><span>81</span></span> + 3·3<sup>x</sup> = 90</span>.' },
+                { label: 'Paso 2:', text: 'Cambio de variable <span class="math">t = 3<sup>x</sup></span> (<span class="math">t &gt; 0</span>): <span class="math"><span class="frac"><span>t<sup>2</sup></span><span>81</span></span> + 3t = 90 ⇒ t<sup>2</sup> + 243t - 7290 = 0</span>.' },
+                { label: 'Paso 3:', text: 'Resolvemos la ecuación cuadrática: <span class="math">t = <span class="frac"><span>-243 ± <span class="sqrt">√<span class="sqrt-rad">59049 + 29160</span></span></span><span>2</span></span> = <span class="frac"><span>-243 ± 297</span><span>2</span></span> ⇒ t<sub>1</sub> = 27, &nbsp; t<sub>2</sub> = -270</span> (no válida).' },
+                { label: 'Paso 4:', text: 'Deshacemos el cambio: <span class="math">3<sup>x</sup> = 27 = 3<sup>3</sup> ⇒ x = 3</span>.' }
+              ],
+              domainCheck: null,
+              finalAnswer: 'x = 3'
+            },
+            {
+              letter: 'g)',
+              tag: 'Cambio de variable t = 2ˣ',
+              equation: '2<sup>2x-1</sup> + 2<sup>x</sup> = 5·2<sup>3</sup>',
+              steps: [
+                { label: 'Paso 1:', text: 'Simplificamos potencias: <span class="math"><span class="frac"><span>(2<sup>x</sup>)<sup>2</sup></span><span>2</span></span> + 2<sup>x</sup> = 40</span>.' },
+                { label: 'Paso 2:', text: 'Cambio de variable <span class="math">t = 2<sup>x</sup></span> (<span class="math">t &gt; 0</span>): <span class="math"><span class="frac"><span>t<sup>2</sup></span><span>2</span></span> + t = 40 ⇒ t<sup>2</sup> + 2t - 80 = 0</span>.' },
+                { label: 'Paso 3:', text: 'Resolvemos: <span class="math">(t - 8)(t + 10) = 0 ⇒ t<sub>1</sub> = 8, &nbsp; t<sub>2</sub> = -10</span> (no válida).' },
+                { label: 'Paso 4:', text: 'Deshacemos el cambio: <span class="math">2<sup>x</sup> = 8 = 2<sup>3</sup> ⇒ x = 3</span>.' }
+              ],
+              domainCheck: null,
+              finalAnswer: 'x = 3'
+            },
+            {
+              letter: 'h)',
+              tag: 'Cambio de variable t = 2ˣ',
+              equation: '2<sup>x</sup> - 4<sup>x+2</sup> - 2<sup>-2</sup> = -1',
+              steps: [
+                { label: 'Paso 1:', text: 'Expresamos todo en base 2: <span class="math">2<sup>x</sup> - (2<sup>2</sup>)<sup>x+2</sup> - <span class="frac"><span>1</span><span>4</span></span> = -1 ⇒ 2<sup>x</sup> - 2<sup>2x+4</sup> + <span class="frac"><span>3</span><span>4</span></span> = 0 ⇒ 2<sup>x</sup> - 16·(2<sup>x</sup>)<sup>2</sup> + <span class="frac"><span>3</span><span>4</span></span> = 0</span>.' },
+                { label: 'Paso 2:', text: 'Cambio de variable <span class="math">t = 2<sup>x</sup></span> (<span class="math">t &gt; 0</span>): <span class="math">-16t<sup>2</sup> + t + <span class="frac"><span>3</span><span>4</span></span> = 0 ⇒ 64t<sup>2</sup> - 4t - 3 = 0</span>.' },
+                { label: 'Paso 3:', text: 'Resolvemos: <span class="math">t = <span class="frac"><span>4 ± <span class="sqrt">√<span class="sqrt-rad">16 + 768</span></span></span><span>128</span></span> = <span class="frac"><span>4 ± 28</span><span>128</span></span> ⇒ t<sub>1</sub> = <span class="frac"><span>32</span><span>128</span></span> = <span class="frac"><span>1</span><span>4</span></span>, &nbsp; t<sub>2</sub> = -<span class="frac"><span>24</span><span>128</span></span> = -<span class="frac"><span>3</span><span>16</span></span></span> (no válida).' },
+                { label: 'Paso 4:', text: 'Deshacemos el cambio: <span class="math">2<sup>x</sup> = <span class="frac"><span>1</span><span>4</span></span> = 2<sup>-2</sup> ⇒ x = -2</span>.' }
+              ],
+              domainCheck: null,
+              finalAnswer: 'x = -2'
+            }
+          ]
+        }
+      ];
+
+      /* ======================================================================
+         2. BANCO CURADO DE EJERCICIOS DE PRÁCTICA (15 EJERCICIOS VARIADOS)
+         ====================================================================== */
+      const CURATED_EXERCISES = [
+        {
+          id: 'cur-1',
+          type: 'log',
+          difficulty: 'Básico',
+          equation: 'log<sub>2</sub>(3x - 2) = 4',
+          solutions: [6],
+          invalidRoots: [],
+          displaySolution: 'x = 6',
+          hint: 'Aplica la definición de logaritmo en base 2: el argumento (3x - 2) debe ser igual a 2 elevado a 4.',
+          steps: [
+            'Por definición de logaritmo: <span class="math">3x - 2 = 2<sup>4</sup> = 16</span>.',
+            'Despejamos <span class="math">x</span>: <span class="math">3x = 18 ⇒ x = 6</span>.',
+            'Comprobación: <span class="math">3(6) - 2 = 16 &gt; 0</span>. Solución válida: <strong>x = 6</strong>.'
+          ]
+        },
+        {
+          id: 'cur-2',
+          type: 'log',
+          difficulty: 'Básico',
+          equation: 'log(5x - 10) = 2',
+          solutions: [22],
+          invalidRoots: [],
+          displaySolution: 'x = 22',
+          hint: 'Recuerda que cuando no se indica base, la base es 10. Por tanto, 5x - 10 = 10².',
+          steps: [
+            'Aplicamos definición en base 10: <span class="math">5x - 10 = 10<sup>2</sup> = 100</span>.',
+            'Despejamos <span class="math">x</span>: <span class="math">5x = 110 ⇒ x = 22</span>.',
+            'Comprobación: <span class="math">5(22) - 10 = 100 &gt; 0</span>. Solución válida: <strong>x = 22</strong>.'
+          ]
+        },
+        {
+          id: 'cur-3',
+          type: 'exp',
+          difficulty: 'Básico',
+          equation: '2<sup>3x - 1</sup> = 32',
+          solutions: [2],
+          invalidRoots: [],
+          displaySolution: 'x = 2',
+          hint: 'Factoriza 32 como una potencia de base 2 (32 = 2⁵) e iguala los exponentes.',
+          steps: [
+            'Expresamos 32 en base 2: <span class="math">2<sup>3x - 1</sup> = 2<sup>5</sup></span>.',
+            'Igualamos exponentes: <span class="math">3x - 1 = 5 ⇒ 3x = 6 ⇒ x = 2</span>.'
+          ]
+        },
+        {
+          id: 'cur-4',
+          type: 'exp',
+          difficulty: 'Básico',
+          equation: '5<sup>2x + 3</sup> = <span class="frac"><span>1</span><span>25</span></span>',
+          solutions: [-2.5],
+          invalidRoots: [],
+          displaySolution: 'x = -5/2  (ó -2,5)',
+          hint: 'Recuerda que 1/25 = 1/5² = 5⁻². Igualando exponentes obtendrás una fracción.',
+          steps: [
+            'Escribimos <span class="math"><span class="frac"><span>1</span><span>25</span></span></span> como potencia de 5: <span class="math">5<sup>2x + 3</sup> = 5<sup>-2</sup></span>.',
+            'Igualamos exponentes: <span class="math">2x + 3 = -2 ⇒ 2x = -5 ⇒ x = -<span class="frac"><span>5</span><span>2</span></span> = -2,5</span>.'
+          ]
+        },
+        {
+          id: 'cur-5',
+          type: 'log',
+          difficulty: 'Intermedio',
+          equation: 'log(x) + log(x - 3) = 1',
+          solutions: [5],
+          invalidRoots: [-2],
+          displaySolution: 'x = 5',
+          hint: 'Agrupa la suma en un solo logaritmo usando el producto, y escribe 1 como log(10). ¡No olvides comprobar el dominio!',
+          steps: [
+            'Agrupamos con el producto y usamos <span class="math">1 = log(10)</span>: <span class="math">log(x(x - 3)) = log(10)</span>.',
+            'Igualamos argumentos: <span class="math">x<sup>2</sup> - 3x = 10 ⇒ x<sup>2</sup> - 3x - 10 = 0</span>.',
+            'Resolvemos la ecuación de 2.º grado: <span class="math">(x - 5)(x + 2) = 0 ⇒ x<sub>1</sub> = 5, x<sub>2</sub> = -2</span>.',
+            'Dominio (<span class="math">x &gt; 0</span> y <span class="math">x - 3 &gt; 0 ⇒ x &gt; 3</span>): descartamos <span class="math">x = -2</span>. Solución válida: <strong>x = 5</strong>.'
+          ]
+        },
+        {
+          id: 'cur-6',
+          type: 'log',
+          difficulty: 'Intermedio',
+          equation: 'log<sub>3</sub>(2x + 1) - log<sub>3</sub>(x - 1) = 2',
+          solutions: [10 / 7],
+          invalidRoots: [],
+          displaySolution: 'x = 10/7',
+          hint: 'La resta de logaritmos equivale al logaritmo del cociente: log₃((2x + 1)/(x - 1)) = 2.',
+          steps: [
+            'Aplicamos la propiedad del cociente: <span class="math">log<sub>3</sub><span class="frac"><span>2x + 1</span><span>x - 1</span></span> = 2</span>.',
+            'Por definición: <span class="math"><span class="frac"><span>2x + 1</span><span>x - 1</span></span> = 3<sup>2</sup> = 9</span>.',
+            'Despejamos: <span class="math">2x + 1 = 9(x - 1) ⇒ 2x + 1 = 9x - 9 ⇒ 7x = 10 ⇒ x = <span class="frac"><span>10</span><span>7</span></span></span>.',
+            'Comprobación: <span class="math"><span class="frac"><span>10</span><span>7</span></span> &gt; 1</span>, ambos argumentos son positivos. Solución: <strong>x = 10/7</strong>.'
+          ]
+        },
+        {
+          id: 'cur-7',
+          type: 'log',
+          difficulty: 'Intermedio',
+          equation: '2·log(x) = log(4x + 12)',
+          solutions: [6],
+          invalidRoots: [-2],
+          displaySolution: 'x = 6',
+          hint: 'Sube el 2 como exponente de x: log(x²) = log(4x + 12). Al resolver la cuadrática, comprueba qué raíz cumple x > 0.',
+          steps: [
+            'Aplicamos propiedad de la potencia: <span class="math">log(x<sup>2</sup>) = log(4x + 12)</span>.',
+            'Igualamos argumentos: <span class="math">x<sup>2</sup> - 4x - 12 = 0 ⇒ (x - 6)(x + 2) = 0 ⇒ x<sub>1</sub> = 6, x<sub>2</sub> = -2</span>.',
+            'Dominio (<span class="math">x &gt; 0</span>): <span class="math">x = -2</span> no es válida. Solución única: <strong>x = 6</strong>.'
+          ]
+        },
+        {
+          id: 'cur-8',
+          type: 'exp',
+          difficulty: 'Intermedio',
+          equation: '2<sup>x + 1</sup> + 2<sup>x</sup> + 2<sup>x - 1</sup> = 28',
+          solutions: [3],
+          invalidRoots: [],
+          displaySolution: 'x = 3',
+          hint: 'Saca factor común 2ˣ teniendo en cuenta que 2ˣ⁺¹ = 2·2ˣ y 2ˣ⁻¹ = (1/2)·2ˣ.',
+          steps: [
+            'Descomponemos potencias: <span class="math">2·2<sup>x</sup> + 2<sup>x</sup> + <span class="frac"><span>1</span><span>2</span></span>·2<sup>x</sup> = 28</span>.',
+            'Sacamos factor común <span class="math">2<sup>x</sup></span>: <span class="math">2<sup>x</sup>(2 + 1 + <span class="frac"><span>1</span><span>2</span></span>) = 28 ⇒ 2<sup>x</sup> · <span class="frac"><span>7</span><span>2</span></span> = 28</span>.',
+            'Despejamos: <span class="math">2<sup>x</sup> = <span class="frac"><span>28 · 2</span><span>7</span></span> = 8 = 2<sup>3</sup> ⇒ x = 3</span>.'
+          ]
+        },
+        {
+          id: 'cur-9',
+          type: 'exp',
+          difficulty: 'Intermedio',
+          equation: '3<sup>x + 2</sup> - 3<sup>x</sup> = 72',
+          solutions: [2],
+          invalidRoots: [],
+          displaySolution: 'x = 2',
+          hint: 'Escribe 3ˣ⁺² como 9·3ˣ y saca factor común 3ˣ.',
+          steps: [
+            'Reescribimos: <span class="math">9·3<sup>x</sup> - 3<sup>x</sup> = 72</span>.',
+            'Sacamos factor común: <span class="math">8·3<sup>x</sup> = 72 ⇒ 3<sup>x</sup> = 9 = 3<sup>2</sup> ⇒ x = 2</span>.'
+          ]
+        },
+        {
+          id: 'cur-10',
+          type: 'exp',
+          difficulty: 'Intermedio',
+          equation: '3<sup>x<sup>2</sup> - 3x</sup> = 81',
+          solutions: [4, -1],
+          invalidRoots: [],
+          displaySolution: 'x₁ = 4,  x₂ = -1',
+          hint: '81 = 3⁴. Iguala el exponente x² - 3x a 4 y resuelve la ecuación de segundo grado (ambas raíces son válidas).',
+          steps: [
+            'Expresamos 81 en base 3: <span class="math">3<sup>x<sup>2</sup> - 3x</sup> = 3<sup>4</sup></span>.',
+            'Igualamos exponentes: <span class="math">x<sup>2</sup> - 3x - 4 = 0 ⇒ (x - 4)(x + 1) = 0</span>.',
+            'Ambas soluciones son válidas: <strong>x₁ = 4, x₂ = -1</strong>.'
+          ]
+        },
+        {
+          id: 'cur-11',
+          type: 'exp',
+          difficulty: 'Intermedio',
+          equation: '2<sup>x</sup> = 10',
+          solutions: [Math.log(10) / Math.log(2)],
+          invalidRoots: [],
+          displaySolution: 'x = log₂(10) ≈ 3,32',
+          hint: 'Como 10 no es potencia exacta de 2, toma logaritmos decimales en ambos lados: x·log(2) = log(10).',
+          steps: [
+            'Tomamos logaritmos en base 10: <span class="math">log(2<sup>x</sup>) = log(10)</span>.',
+            'Aplicamos potencia: <span class="math">x·log(2) = 1 ⇒ x = <span class="frac"><span>1</span><span>log(2)</span></span> ≈ 3,3219</span>.'
+          ]
+        },
+        {
+          id: 'cur-12',
+          type: 'log',
+          difficulty: 'Examen',
+          equation: 'log<sub>2</sub>(x) + log<sub>4</sub>(x) = 6',
+          solutions: [16],
+          invalidRoots: [],
+          displaySolution: 'x = 16',
+          hint: 'Cambia log₄(x) a base 2 usando log₄(x) = log₂(x) / log₂(4) = log₂(x) / 2.',
+          steps: [
+            'Cambiamos <span class="math">log<sub>4</sub>(x)</span> a base 2: <span class="math">log<sub>4</sub>(x) = <span class="frac"><span>log<sub>2</sub>(x)</span><span>2</span></span></span>.',
+            'Sumamos: <span class="math">log<sub>2</sub>(x) + <span class="frac"><span>1</span><span>2</span></span>log<sub>2</sub>(x) = 6 ⇒ <span class="frac"><span>3</span><span>2</span></span>log<sub>2</sub>(x) = 6</span>.',
+            'Despejamos: <span class="math">log<sub>2</sub>(x) = 4 ⇒ x = 2<sup>4</sup> = 16</span>.'
+          ]
+        },
+        {
+          id: 'cur-13',
+          type: 'log',
+          difficulty: 'Examen',
+          equation: 'log<sub>x</sub>(8) + log<sub>x</sub>(2) = 4',
+          solutions: [2],
+          invalidRoots: [-2],
+          displaySolution: 'x = 2',
+          hint: 'Aplica la propiedad del producto para obtener logₓ(16) = 4 y pasa a forma exponencial: x⁴ = 16.',
+          steps: [
+            'Agrupamos con el producto: <span class="math">log<sub>x</sub>(8 · 2) = 4 ⇒ log<sub>x</sub>(16) = 4</span>.',
+            'Por definición: <span class="math">x<sup>4</sup> = 16 ⇒ x = ±2</span>.',
+            'Como la base de un logaritmo debe ser positiva (<span class="math">x &gt; 0, x ≠ 1</span>), descartamos <span class="math">x = -2</span>. Solución: <strong>x = 2</strong>.'
+          ]
+        },
+        {
+          id: 'cur-14',
+          type: 'exp',
+          difficulty: 'Examen',
+          equation: '4<sup>x</sup> - 6·2<sup>x</sup> + 8 = 0',
+          solutions: [2, 1],
+          invalidRoots: [],
+          displaySolution: 'x₁ = 2,  x₂ = 1',
+          hint: 'Observa que 4ˣ = (2²)ˣ = (2ˣ)². Haz el cambio de variable t = 2ˣ y resuelve t² - 6t + 8 = 0.',
+          steps: [
+            'Escribimos <span class="math">4<sup>x</sup> = (2<sup>x</sup>)<sup>2</sup></span> y hacemos el cambio <span class="math">t = 2<sup>x</sup></span> (<span class="math">t &gt; 0</span>): <span class="math">t<sup>2</sup> - 6t + 8 = 0</span>.',
+            'Factorizamos: <span class="math">(t - 4)(t - 2) = 0 ⇒ t<sub>1</sub> = 4, t<sub>2</sub> = 2</span>.',
+            'Deshacemos el cambio: <span class="math">2<sup>x</sup> = 4 ⇒ x<sub>1</sub> = 2</span> y <span class="math">2<sup>x</sup> = 2 ⇒ x<sub>2</sub> = 1</span>.'
+          ]
+        },
+        {
+          id: 'cur-15',
+          type: 'exp',
+          difficulty: 'Examen',
+          equation: '9<sup>x</sup> - 8·3<sup>x</sup> - 9 = 0',
+          solutions: [2],
+          invalidRoots: [],
+          displaySolution: 'x = 2',
+          hint: 'Haz el cambio de variable t = 3ˣ (t > 0). Recuerda descartar el valor negativo de t antes de despejar x.',
+          steps: [
+            'Cambio de variable <span class="math">t = 3<sup>x</sup></span> (<span class="math">t &gt; 0</span>): <span class="math">t<sup>2</sup> - 8t - 9 = 0</span>.',
+            'Resolvemos: <span class="math">(t - 9)(t + 1) = 0 ⇒ t<sub>1</sub> = 9, t<sub>2</sub> = -1</span>.',
+            'Descartamos <span class="math">t<sub>2</sub> = -1</span> porque <span class="math">3<sup>x</sup> &gt; 0</span> siempre. Con <span class="math">t<sub>1</sub> = 9</span>: <span class="math">3<sup>x</sup> = 9 ⇒ x = 2</span>.'
+          ]
+        }
+      ];
+
+      /* ======================================================================
+         3. GENERADOR DINÁMICO DE EJERCICIOS ALEATORIOS (NIVEL 1.º BACHILLERATO)
+         ====================================================================== */
+      let randomCounter = 0;
+
+      function randInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+
+      function pickRandom(arr) {
+        return arr[Math.floor(Math.random() * arr.length)];
+      }
+
+      function gcd(a, b) {
+        a = Math.abs(a);
+        b = Math.abs(b);
+        while (b) {
+          const t = b;
+          b = a % b;
+          a = t;
+        }
+        return a;
+      }
+
+      function formatFraction(num, den) {
+        if (den < 0) { num = -num; den = -den; }
+        const g = gcd(num, den);
+        num /= g;
+        den /= g;
+        if (den === 1) return { text: String(num), html: String(num), val: num };
+        return {
+          text: `${num}/${den}`,
+          html: `<span class="frac"><span>${num}</span><span>${den}</span></span>`,
+          val: num / den
+        };
+      }
+
+      function generateRandomExercise(preferredType, preferredDiff) {
+        randomCounter++;
+        const templates = [
+          // Plantilla 1: Logarítmica básica por definición -> log_b(a*x + c) = k
+          {
+            type: 'log',
+            difficulty: 'Básico',
+            build: () => {
+              const b = pickRandom([2, 3, 5, 10]);
+              const k = b === 10 ? 2 : randInt(2, 4);
+              const targetArg = Math.pow(b, k);
+              const xSol = randInt(2, 9);
+              const a = randInt(2, 5);
+              const c = targetArg - a * xSol;
+              const cStr = c >= 0 ? `+ ${c}` : `- ${Math.abs(c)}`;
+              const baseSub = b === 10 ? '' : `<sub>${b}</sub>`;
+              return {
+                equation: `log${baseSub}(${a}x ${cStr}) = ${k}`,
+                solutions: [xSol],
+                invalidRoots: [],
+                displaySolution: `x = ${xSol}`,
+                hint: `Aplica la definición de logaritmo: ${a}x ${cStr} = ${b}<sup>${k}</sup>.`,
+                steps: [
+                  `Aplicamos la definición de logaritmo: <span class="math">${a}x ${cStr} = ${b}<sup>${k}</sup> = ${targetArg}</span>.`,
+                  `Despejamos <span class="math">x</span>: <span class="math">${a}x = ${targetArg - c} ⇒ x = ${xSol}</span>.`,
+                  `Comprobación: <span class="math">${a}(${xSol}) ${cStr} = ${targetArg} &gt; 0</span>. Solución válida: <strong>x = ${xSol}</strong>.`
+                ]
+              };
+            }
+          },
+          // Plantilla 2: Logarítmica producto + descarte por dominio -> log(x - r1) + log(x + r2) = log(M)
+          {
+            type: 'log',
+            difficulty: 'Intermedio',
+            build: () => {
+              // Queremos (x - r1)(x + r2) = M con raíces x1 = sol > r1 y x2 = -neg < r1
+              // Desarrollado: x^2 + (r2 - r1)x - r1*r2 - M = 0 => (x - sol)(x + neg) = 0
+              // Por tanto: r2 - r1 = neg - sol  =>  r2 = neg - sol + r1
+              // Y -r1*r2 - M = -sol*neg => M = sol*neg - r1*r2
+              const r1 = randInt(1, 3);
+              const sol = r1 + randInt(2, 5);
+              const neg = sol - r1 + randInt(1, 4);
+              const r2 = neg - sol + r1;
+              const M = sol * neg - r1 * r2;
+              const bCoef = r2 - r1;
+              const bTerm = bCoef === 0 ? '' : (bCoef > 0 ? `+ ${bCoef}x` : `- ${Math.abs(bCoef)}x`);
+              return {
+                equation: `log(x - ${r1}) + log(x + ${r2}) = log(${M})`,
+                solutions: [sol],
+                invalidRoots: [-neg],
+                displaySolution: `x = ${sol}`,
+                hint: `Aplica log(A) + log(B) = log(A·B), iguala argumentos a ${M} y comprueba qué solución cumple x > ${r1}.`,
+                steps: [
+                  `Aplicamos la propiedad del producto: <span class="math">log((x - ${r1})(x + ${r2})) = log(${M})</span>.`,
+                  `Igualamos argumentos y desarrollamos: <span class="math">x<sup>2</sup> ${bTerm} - ${r1 * r2} = ${M} ⇒ x<sup>2</sup> ${bTerm} - ${sol * neg} = 0</span>.`,
+                  `Factorizamos: <span class="math">(x - ${sol})(x + ${neg}) = 0 ⇒ x<sub>1</sub> = ${sol}, &nbsp; x<sub>2</sub> = -${neg}</span>.`,
+                  `Comprobación del dominio (<span class="math">x &gt; ${r1}</span>): descartamos <span class="math">x = -${neg}</span>. Solución válida: <strong>x = ${sol}</strong>.`
+                ]
+              };
+            }
+          },
+          // Plantilla 3: Logarítmica cambio de base -> log_b(x) + log_{b^2}(x) = 3k/2
+          {
+            type: 'log',
+            difficulty: 'Examen',
+            build: () => {
+              const b = pickRandom([2, 3, 5]);
+              const b2 = b * b;
+              const k = pickRandom([2, 4]);
+              const rhs = (3 * k) / 2;
+              const sol = Math.pow(b, k);
+              return {
+                equation: `log<sub>${b}</sub>(x) + log<sub>${b2}</sub>(x) = ${rhs}`,
+                solutions: [sol],
+                invalidRoots: [],
+                displaySolution: `x = ${sol}`,
+                hint: `Cambia log<sub>${b2}</sub>(x) a base ${b}: recuerda que ${b2} = ${b}², así que log<sub>${b2}</sub>(x) = log<sub>${b}</sub>(x) / 2.`,
+                steps: [
+                  `Cambiamos <span class="math">log<sub>${b2}</sub>(x)</span> a base ${b}: <span class="math">log<sub>${b2}</sub>(x) = <span class="frac"><span>log<sub>${b}</sub>(x)</span><span>2</span></span></span>.`,
+                  `Sumamos: <span class="math">log<sub>${b}</sub>(x) + <span class="frac"><span>1</span><span>2</span></span>log<sub>${b}</sub>(x) = ${rhs} ⇒ <span class="frac"><span>3</span><span>2</span></span>log<sub>${b}</sub>(x) = ${rhs}</span>.`,
+                  `Despejamos: <span class="math">log<sub>${b}</sub>(x) = ${k} ⇒ x = ${b}<sup>${k}</sup> = ${sol}</span>.`
+                ]
+              };
+            }
+          },
+          // Plantilla 4: Exponencial igualación de bases -> b^(a*x + c) = b^k
+          {
+            type: 'exp',
+            difficulty: 'Básico',
+            build: () => {
+              const b = pickRandom([2, 3, 5]);
+              const k = randInt(2, 4);
+              const rhs = Math.pow(b, k);
+              const a = randInt(2, 4);
+              const c = randInt(-5, 5) || 2;
+              const frac = formatFraction(k - c, a);
+              const cStr = c > 0 ? `+ ${c}` : `- ${Math.abs(c)}`;
+              return {
+                equation: `${b}<sup>${a}x ${cStr}</sup> = ${rhs}`,
+                solutions: [frac.val],
+                invalidRoots: [],
+                displaySolution: `x = ${frac.text}`,
+                hint: `Expresa ${rhs} como potencia de ${b} (${rhs} = ${b}<sup>${k}</sup>) e iguala los exponentes.`,
+                steps: [
+                  `Expresamos <span class="math">${rhs}</span> como potencia de ${b}: <span class="math">${b}<sup>${a}x ${cStr}</sup> = ${b}<sup>${k}</sup></span>.`,
+                  `Igualamos exponentes: <span class="math">${a}x ${cStr} = ${k} ⇒ ${a}x = ${k - c} ⇒ x = ${frac.html}</span>.`
+                ]
+              };
+            }
+          },
+          // Plantilla 5: Exponencial factor común -> c1 * b^(x+1) + c2 * b^x = R
+          {
+            type: 'exp',
+            difficulty: 'Intermedio',
+            build: () => {
+              const b = pickRandom([2, 3]);
+              const xSol = randInt(1, 4);
+              const c1 = randInt(1, 3);
+              const c2 = randInt(1, 4);
+              const factor = c1 * b + c2;
+              const rhs = factor * Math.pow(b, xSol);
+              const c1Prefix = c1 === 1 ? '' : `${c1}·`;
+              const c2Prefix = c2 === 1 ? '' : `${c2}·`;
+              return {
+                equation: `${c1Prefix}${b}<sup>x + 1</sup> + ${c2Prefix}${b}<sup>x</sup> = ${rhs}`,
+                solutions: [xSol],
+                invalidRoots: [],
+                displaySolution: `x = ${xSol}`,
+                hint: `Descompón ${b}<sup>x+1</sup> como ${b}·${b}<sup>x</sup> y saca factor común ${b}<sup>x</sup>.`,
+                steps: [
+                  `Descomponemos: <span class="math">${c1 * b}·${b}<sup>x</sup> + ${c2Prefix}${b}<sup>x</sup> = ${rhs}</span>.`,
+                  `Sacamos factor común <span class="math">${b}<sup>x</sup></span>: <span class="math">${b}<sup>x</sup>(${c1 * b} + ${c2}) = ${rhs} ⇒ ${factor}·${b}<sup>x</sup> = ${rhs}</span>.`,
+                  `Despejamos: <span class="math">${b}<sup>x</sup> = ${Math.pow(b, xSol)} = ${b}<sup>${xSol}</sup> ⇒ x = ${xSol}</span>.`
+                ]
+              };
+            }
+          },
+          // Plantilla 6: Exponencial cambio de variable t = b^x -> (b^2)^x - (t1+t2)b^x + t1*t2 = 0
+          {
+            type: 'exp',
+            difficulty: 'Examen',
+            build: () => {
+              const b = pickRandom([2, 3]);
+              const bSq = b * b;
+              const p1 = randInt(1, 3);
+              let p2 = randInt(0, 3);
+              if (p2 === p1) p2 = p1 + 1;
+              const t1 = Math.pow(b, p1);
+              const t2 = Math.pow(b, p2);
+              const sum = t1 + t2;
+              const prod = t1 * t2;
+              return {
+                equation: `${bSq}<sup>x</sup> - ${sum}·${b}<sup>x</sup> + ${prod} = 0`,
+                solutions: [p1, p2],
+                invalidRoots: [],
+                displaySolution: `x₁ = ${p1},  x₂ = ${p2}`,
+                hint: `Observa que ${bSq}<sup>x</sup> = (${b}<sup>x</sup>)². Haz el cambio t = ${b}<sup>x</sup> y resuelve t² - ${sum}t + ${prod} = 0.`,
+                steps: [
+                  `Hacemos el cambio <span class="math">t = ${b}<sup>x</sup></span> (<span class="math">t &gt; 0</span>): <span class="math">t<sup>2</sup> - ${sum}t + ${prod} = 0</span>.`,
+                  `Factorizamos: <span class="math">(t - ${t1})(t - ${t2}) = 0 ⇒ t<sub>1</sub> = ${t1}, &nbsp; t<sub>2</sub> = ${t2}</span>.`,
+                  `Deshacemos el cambio: <span class="math">${b}<sup>x</sup> = ${t1} ⇒ x<sub>1</sub> = ${p1}</span> y <span class="math">${b}<sup>x</sup> = ${t2} ⇒ x<sub>2</sub> = ${p2}</span>.`
+                ]
+              };
+            }
+          }
+        ];
+
+        // Filtrar plantillas que encajen con los filtros activos si es posible
+        let candidates = templates.filter(tpl => {
+          const typeOk = preferredType === 'all' || tpl.type === preferredType;
+          const diffOk = preferredDiff === 'all' || tpl.difficulty === preferredDiff;
+          return typeOk && diffOk;
+        });
+
+        if (candidates.length === 0) {
+          candidates = templates;
+        }
+
+        const chosen = pickRandom(candidates);
+        const built = chosen.build();
+        return {
+          id: `rand-${randomCounter}`,
+          type: chosen.type,
+          difficulty: chosen.difficulty,
+          isRandom: true,
+          ...built
+        };
+      }
+
+      /* ======================================================================
+         4. RENDERIZADO Y LÓGICA DE LA PESTAÑA 1 (SOLUCIONARIO)
+         ====================================================================== */
+      const solucionarioContainer = document.getElementById('solucionarioContainer');
+      const openCounterEl = document.getElementById('openCounter');
+
+      function updateOpenCounter() {
+        const total = document.querySelectorAll('.sol-card').length;
+        const opened = document.querySelectorAll('.sol-card.is-open').length;
+        openCounterEl.textContent = `${opened} / ${total} desplegadas`;
+      }
+
+      function renderSolucionario() {
+        let html = '';
+        SOLUCIONARIO_DATA.forEach(block => {
+          html += `
+            <div id="${block.id}" class="exercise-section">
+              <div class="section-header">
+                <span class="section-number">${block.number}</span>
+                <div>
+                  <h2 class="section-title">${block.title}</h2>
+                  <p class="section-desc">${block.subtitle}</p>
+                </div>
+              </div>
+              <div class="cards-grid">
+          `;
+
+          block.items.forEach(item => {
+            const stepsHtml = item.steps.map(st => `
+              <li class="step-item">
+                <span class="step-label">${st.label}</span>${st.text}
+              </li>
+            `).join('');
+
+            const domainHtml = item.domainCheck
+              ? `<div class="domain-check">${item.domainCheck}</div>`
+              : '';
+
+            html += `
+              <article class="sol-card">
+                <div class="sol-card-header">
+                  <div class="sol-card-top">
+                    <span class="letter-pill">Apartado ${item.letter}</span>
+                    <span class="badge badge-slate">${item.tag}</span>
+                  </div>
+                  <div class="equation-box">
+                    <span class="math-display">${item.equation}</span>
+                  </div>
+                  <button type="button" class="btn toggle-step-btn" aria-expanded="false">
+                    <span class="toggle-text">Ver paso a paso</span>
+                    <span class="chevron-icon">▼</span>
+                  </button>
+                </div>
+                <div class="sol-body">
+                  <ul class="steps-list">
+                    ${stepsHtml}
+                  </ul>
+                  ${domainHtml}
+                  <div class="final-answer-box">
+                    <span>Solución válida:</span>
+                    <span class="math" style="font-size: 1.08rem; color: var(--success-text);">${item.finalAnswer}</span>
+                  </div>
+                </div>
+              </article>
+            `;
+          });
+
+          html += `
+              </div>
+            </div>
+          `;
+        });
+
+        solucionarioContainer.innerHTML = html;
+
+        // Eventos individuales de despliegue
+        solucionarioContainer.querySelectorAll('.toggle-step-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const card = btn.closest('.sol-card');
+            const isOpen = card.classList.toggle('is-open');
+            btn.setAttribute('aria-expanded', String(isOpen));
+            btn.querySelector('.toggle-text').textContent = isOpen ? 'Ocultar paso a paso' : 'Ver paso a paso';
+            updateOpenCounter();
+          });
+        });
+
+        updateOpenCounter();
+      }
+
+      document.getElementById('btnExpandAll').addEventListener('click', () => {
+        document.querySelectorAll('.sol-card').forEach(card => {
+          card.classList.add('is-open');
+          const btn = card.querySelector('.toggle-step-btn');
+          btn.setAttribute('aria-expanded', 'true');
+          btn.querySelector('.toggle-text').textContent = 'Ocultar paso a paso';
+        });
+        updateOpenCounter();
+      });
+
+      document.getElementById('btnCollapseAll').addEventListener('click', () => {
+        document.querySelectorAll('.sol-card').forEach(card => {
+          card.classList.remove('is-open');
+          const btn = card.querySelector('.toggle-step-btn');
+          btn.setAttribute('aria-expanded', 'false');
+          btn.querySelector('.toggle-text').textContent = 'Ver paso a paso';
+        });
+        updateOpenCounter();
+      });
+
+      /* ======================================================================
+         5. LÓGICA DE LA PESTAÑA 2 (SIMULADOR DE PRÁCTICA Y PARSER MATEMÁTICO)
+         ====================================================================== */
+      const practiceState = {
+        typeFilter: 'all',
+        diffFilter: 'all',
+        filteredPool: [...CURATED_EXERCISES],
+        currentIndex: 0,
+        customExercise: null,
+        solvedIds: new Set(),
+        stats: {
+          correct: 0,
+          attempts: 0,
+          streak: 0
+        }
+      };
+
+      function updateStatsUI() {
+        const { correct, attempts, streak } = practiceState.stats;
+        document.getElementById('statCorrect').textContent = String(correct);
+        document.getElementById('statAttempts').textContent = String(attempts);
+        document.getElementById('statStreak').textContent = streak >= 3 ? `${streak} 🔥` : String(streak);
+        document.getElementById('statAccuracy').textContent = attempts > 0
+          ? `${Math.round((correct / attempts) * 100)}%`
+          : '—';
+      }
+
+      function applyPracticeFilters() {
+        practiceState.customExercise = null;
+        practiceState.filteredPool = CURATED_EXERCISES.filter(ex => {
+          const typeMatch = practiceState.typeFilter === 'all' || ex.type === practiceState.typeFilter;
+          const diffMatch = practiceState.diffFilter === 'all' || ex.difficulty === practiceState.diffFilter;
+          return typeMatch && diffMatch;
+        });
+
+        // Si alguna combinación de filtros deja la lista vacía, generamos uno aleatorio acorde
+        if (practiceState.filteredPool.length === 0) {
+          practiceState.customExercise = generateRandomExercise(practiceState.typeFilter, practiceState.diffFilter);
+        } else {
+          practiceState.currentIndex = 0;
+        }
+        renderCurrentPracticeExercise();
+      }
+
+      function getCurrentExercise() {
+        if (practiceState.customExercise) return practiceState.customExercise;
+        return practiceState.filteredPool[practiceState.currentIndex];
+      }
+
+      function renderCurrentPracticeExercise() {
+        const ex = getCurrentExercise();
+        if (!ex) return;
+
+        const indexBadge = document.getElementById('practiceIndexBadge');
+        const randomTag = document.getElementById('practiceRandomTag');
+        if (ex.isRandom) {
+          indexBadge.textContent = `Práctica libre #${randomCounter}`;
+          randomTag.style.display = 'inline-flex';
+        } else {
+          indexBadge.textContent = `Ejercicio ${practiceState.currentIndex + 1} de ${practiceState.filteredPool.length}`;
+          randomTag.style.display = 'none';
+        }
+
+        const typeBadge = document.getElementById('practiceTypeBadge');
+        typeBadge.textContent = ex.type === 'log' ? 'Ecuación Logarítmica' : 'Ecuación Exponencial';
+
+        const diffBadge = document.getElementById('practiceDiffBadge');
+        diffBadge.textContent = ex.difficulty;
+        diffBadge.className = 'badge ' + (
+          ex.difficulty === 'Básico' ? 'badge-green' :
+          ex.difficulty === 'Intermedio' ? 'badge-amber' : 'badge-red'
+        );
+
+        document.getElementById('practiceEquation').innerHTML = ex.equation;
+        document.getElementById('userAnswerInput').value = '';
+
+        // Ocultar paneles previos
+        const fb = document.getElementById('practiceFeedback');
+        fb.className = 'feedback-banner';
+        fb.innerHTML = '';
+
+        const hintBox = document.getElementById('practiceHint');
+        hintBox.className = 'hint-box';
+        hintBox.innerHTML = `<strong>💡 Pista:</strong> ${ex.hint}`;
+
+        const solBox = document.getElementById('practiceSolution');
+        solBox.className = 'practice-solution-box';
+        solBox.innerHTML = `
+          <div style="font-weight: 700; color: var(--primary-dark); margin-bottom: 0.65rem;">Resolución paso a paso:</div>
+          <ul class="steps-list" style="margin-top: 0;">
+            ${ex.steps.map((s, idx) => `<li class="step-item"><span class="step-label">Paso ${idx + 1}:</span>${s}</li>`).join('')}
+          </ul>
+          <div class="final-answer-box">
+            <span>Solución final:</span>
+            <span class="math">${ex.displaySolution}</span>
+          </div>
+        `;
+      }
+
+      // Evaluador seguro de tokens numéricos (enteros, decimales, fracciones a/b, sqrt, log)
+      function parseMathToken(rawToken) {
+        let token = rawToken.trim().toLowerCase();
+        // Eliminar prefijos tipo "x =", "x1 =", "x2 ="
+        token = token.replace(/^x[12₁₂]?\s*=\s*/i, '');
+        // Sustituir coma decimal por punto
+        token = token.replace(/,/g, '.');
+        // Eliminar espacios
+        token = token.replace(/\s+/g, '');
+
+        if (!token) return null;
+
+        // Soporte para log_b(n) o log(n)/log(b)
+        const logBaseMatch = token.match(/^log_?(\d+(?:\.\d+)?)\((\d+(?:\.\d+)?)\)$/);
+        if (logBaseMatch) {
+          const base = parseFloat(logBaseMatch[1]);
+          const arg = parseFloat(logBaseMatch[2]);
+          if (base > 0 && base !== 1 && arg > 0) {
+            return Math.log(arg) / Math.log(base);
+          }
+          return null;
+        }
+
+        const logRatioMatch = token.match(/^log\((\d+(?:\.\d+)?)\)\/log\((\d+(?:\.\d+)?)\)$/);
+        if (logRatioMatch) {
+          const num = parseFloat(logRatioMatch[1]);
+          const den = parseFloat(logRatioMatch[2]);
+          if (num > 0 && den > 0 && den !== 1) {
+            return Math.log(num) / Math.log(den);
+          }
+          return null;
+        }
+
+        // Fracción simple a/b
+        if (/^[+-]?\d+(?:\.\d+)?\/[+-]?\d+(?:\.\d+)?$/.test(token)) {
+          const [numStr, denStr] = token.split('/');
+          const den = parseFloat(denStr);
+          if (den === 0) return null;
+          return parseFloat(numStr) / den;
+        }
+
+        // Número decimal o entero estándar
+        if (/^[+-]?(?:\d+\.?\d*|\.\d+)$/.test(token)) {
+          const val = parseFloat(token);
+          return Number.isFinite(val) ? val : null;
+        }
+
+        return null;
+      }
+
+      function parseUserSolutionList(inputStr) {
+        if (!inputStr || !inputStr.trim()) return null;
+        // Separar por punto y coma, o por coma solo si no es coma decimal (ej. "2, -1" o "1/2, 3")
+        // Si hay espacios alrededor de la coma o múltiples comas, dividimos; si es "2,26" (sin espacio tras coma y 1 sola coma con decimales), es decimal.
+        let parts;
+        if (inputStr.includes(';')) {
+          parts = inputStr.split(';');
+        } else if (/\s*,\s+/.test(inputStr)) {
+          parts = inputStr.split(/\s*,\s+/);
+        } else {
+          // Comprobar si es un único número decimal con coma (ej: "2,26" o "-2,5")
+          const singleCommaDecimal = /^[+-]?\d+,\d+$/.test(inputStr.trim());
+          parts = singleCommaDecimal ? [inputStr.trim()] : inputStr.split(',');
+        }
+
+        const values = [];
+        for (const p of parts) {
+          if (!p.trim()) continue;
+          const parsed = parseMathToken(p);
+          if (parsed === null) return null;
+          // Evitar duplicados idénticos
+          if (!values.some(v => Math.abs(v - parsed) < 1e-6)) {
+            values.push(parsed);
+          }
+        }
+        return values.length > 0 ? values : null;
+      }
+
+      document.getElementById('practiceForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const ex = getCurrentExercise();
+        const rawInput = document.getElementById('userAnswerInput').value;
+        const fb = document.getElementById('practiceFeedback');
+
+        const userVals = parseUserSolutionList(rawInput);
+        if (!userVals) {
+          fb.className = 'feedback-banner warning show';
+          fb.innerHTML = '⚠️ <strong>Formato no reconocido.</strong> Introduce un número entero (<code>4</code>), fracción (<code>1/2</code>), decimal (<code>2.26</code>) o dos soluciones separadas por coma (<code>2, -1</code>).';
+          return;
+        }
+
+        practiceState.stats.attempts++;
+
+        const expected = ex.solutions;
+        const tol = 0.025;
+
+        // Comprobar si el usuario incluyó alguna raíz descartada por dominio
+        const includedInvalid = ex.invalidRoots && ex.invalidRoots.some(inv =>
+          userVals.some(u => Math.abs(u - inv) < tol)
+        );
+
+        // Comprobar coincidencias exactas de conjunto
+        const allExpectedFound = expected.every(expVal =>
+          userVals.some(u => Math.abs(u - expVal) < tol)
+        );
+        const noExtraValues = userVals.every(u =>
+          expected.some(expVal => Math.abs(u - expVal) < tol)
+        );
+
+        if (allExpectedFound && noExtraValues) {
+          practiceState.stats.correct++;
+          practiceState.stats.streak++;
+          practiceState.solvedIds.add(ex.id);
+          updateStatsUI();
+
+          fb.className = 'feedback-banner success show';
+          fb.innerHTML = `🎉 <strong>¡Excelente! Respuesta correcta.</strong> Solución: <span class="math"><strong>${ex.displaySolution}</strong></span>.`;
+          document.getElementById('practiceSolution').classList.add('show');
+        } else {
+          practiceState.stats.streak = 0;
+          updateStatsUI();
+
+          if (includedInvalid) {
+            fb.className = 'feedback-banner error show';
+            fb.innerHTML = '❌ <strong>¡Cuidado con el dominio!</strong> Has incluido una solución extraña que anula o hace negativo el argumento (o la base) de un logaritmo. Descarta esa raíz y vuelve a intentarlo.';
+          } else if (expected.length > 1 && userVals.length === 1 && allExpectedFound === false && noExtraValues) {
+            fb.className = 'feedback-banner warning show';
+            fb.innerHTML = `⚠️ <strong>¡Vas por buen camino!</strong> Has encontrado una solución válida, pero esta ecuación tiene <strong>${expected.length} soluciones válidas</strong>. Revisa si falta alguna.`;
+          } else {
+            fb.className = 'feedback-banner error show';
+            fb.innerHTML = '❌ <strong>No es correcto todavía.</strong> Revisa las propiedades aplicadas o pulsa en <em>«Pista»</em> para orientarte.';
+          }
+        }
+      });
+
+      document.getElementById('btnShowHint').addEventListener('click', () => {
+        document.getElementById('practiceHint').classList.toggle('show');
+      });
+
+      document.getElementById('btnShowPracticeSol').addEventListener('click', () => {
+        document.getElementById('practiceSolution').classList.toggle('show');
+      });
+
+      document.getElementById('btnPrevEx').addEventListener('click', () => {
+        if (practiceState.customExercise) {
+          practiceState.customExercise = null;
+          renderCurrentPracticeExercise();
+          return;
+        }
+        const len = practiceState.filteredPool.length;
+        practiceState.currentIndex = (practiceState.currentIndex - 1 + len) % len;
+        renderCurrentPracticeExercise();
+      });
+
+      document.getElementById('btnNextEx').addEventListener('click', () => {
+        if (practiceState.customExercise) {
+          practiceState.customExercise = generateRandomExercise(practiceState.typeFilter, practiceState.diffFilter);
+          renderCurrentPracticeExercise();
+          return;
+        }
+        const len = practiceState.filteredPool.length;
+        practiceState.currentIndex = (practiceState.currentIndex + 1) % len;
+        renderCurrentPracticeExercise();
+      });
+
+      document.getElementById('btnGenerateRandom').addEventListener('click', () => {
+        practiceState.customExercise = generateRandomExercise(practiceState.typeFilter, practiceState.diffFilter);
+        renderCurrentPracticeExercise();
+      });
+
+      document.getElementById('btnResetStats').addEventListener('click', () => {
+        practiceState.stats = { correct: 0, attempts: 0, streak: 0 };
+        practiceState.solvedIds.clear();
+        updateStatsUI();
+        const fb = document.getElementById('practiceFeedback');
+        fb.className = 'feedback-banner warning show';
+        fb.innerHTML = '↺ Marcador reiniciado a cero.';
+      });
+
+      // Filtros por tipo y dificultad
+      document.getElementById('typeFilters').addEventListener('click', (e) => {
+        const btn = e.target.closest('.chip-btn');
+        if (!btn) return;
+        document.querySelectorAll('#typeFilters .chip-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        practiceState.typeFilter = btn.dataset.type;
+        applyPracticeFilters();
+      });
+
+      document.getElementById('diffFilters').addEventListener('click', (e) => {
+        const btn = e.target.closest('.chip-btn');
+        if (!btn) return;
+        document.querySelectorAll('#diffFilters .chip-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        practiceState.diffFilter = btn.dataset.diff;
+        applyPracticeFilters();
+      });
+
+      /* ======================================================================
+         6. NAVEGACIÓN ENTRE PESTAÑAS PRINCIPALES
+         ====================================================================== */
+      const tabButtons = document.querySelectorAll('.tab-btn');
+      const tabPanels = document.querySelectorAll('.tab-panel');
+
+      tabButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const target = btn.dataset.tab;
+          tabButtons.forEach(b => {
+            const active = b === btn;
+            b.classList.toggle('active', active);
+            b.setAttribute('aria-selected', String(active));
+          });
+          tabPanels.forEach(panel => {
+            panel.classList.toggle('active', panel.id === `tab-${target}`);
+          });
+        });
+      });
+
+      // Inicialización
+      renderSolucionario();
+      renderCurrentPracticeExercise();
+      updateStatsUI();
+    })();
+  </script>
+</body>
+</html>
